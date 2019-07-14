@@ -1,4 +1,13 @@
 let gameArray = [];
+let table = null;
+let flag = 4;
+
+gameArray = firstStep(gameArray);
+gameStep();
+
+document.addEventListener("keydown", changeDirection);
+
+
 
 function firstStep(arr){
     const startPool = [33,34,35,36,37,
@@ -21,9 +30,47 @@ function firstStep(arr){
 }
 
 function gameStep(){
+    table = document.querySelector(".snake-game-table");
+    let iterator = 0;
+
     for (let i = 0; i < 10; i++){
+        const row = document.createElement("div");
+        row.classList.add("snake-game-table-row");
+
         for(let j = 0; j < 10; j++){
-            
+            const pool = document.createElement("div");
+            pool.classList.add("snake-game-table-pool");
+
+            if (gameArray[iterator] === 1){
+                pool.id = "snake";
+            }
+
+            row.appendChild(pool);
+            iterator++;
         }
+    
+        table.append(row);
+
+    }
+}
+
+function changeDirection(e){
+    switch (e.keyCode) {
+        case 38: 
+        // up
+            flag = 1;
+            break;
+        case 40:
+        // down
+            flag = 2;
+            break;    
+        case 37: 
+        // left
+            flag = 3;
+            break;
+        case 39: 
+        // right
+            flag = 4;
+            break;
     }
 }

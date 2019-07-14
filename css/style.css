@@ -1,10 +1,14 @@
+/* color set: 
+https://coolors.co/1d3461-090c9b-3d52d5-b4c5e4-fbfff1 
+*/
+
 * {
     font-family: sans-serif;
     box-sizing: border-box;
 }
 
 body{
-    background: #242B3C;
+    background: #1D3461;
     min-height: 500px;
     max-width: 80rem;
     margin: 0 auto;
@@ -17,20 +21,21 @@ body{
     margin-bottom: 1rem;
     text-align: center;
     border-bottom: 1px solid #8999A6;
-    color: #FCFCFC;
+    color: #FBFFF1;
 }
 
-.snake-header-text{
+.snake-header-big{
     text-transform: uppercase;
     letter-spacing: 0.15rem;
     font-size: 3rem;
     margin-bottom: 0;
-    background: #242B3C;
+    background: #1D3461;
+    color: #B4C5E4;
     position: relative;
     animation: text 3s 1; 
 }
 
-.snake-header-text2{ 
+.snake-header-small{ 
     margin-top: -5px;
     font-size: 1.5rem;
 }
@@ -64,22 +69,28 @@ body{
     width: 1.5rem;
     height: 1.5rem;
     margin: 1px;
-    background: rgb(0, 162, 255);
+    background: #FBFFF1;
     float: left;
 }
 
 .snake-game-info{
-    color: #FCFCFC;
+    color: #FBFFF1;
     height: 300px;
     margin-top: 0px;
 }
 
-.snake-game-info-text{
+.snake-game-info-header{
     text-transform: uppercase;
     font-size: 1.3rem;
 }
 
-.snake-game-info-text2{
+.snake-game-info-arrow{
+    color: #3D52D5;
+    margin-right: 10px;
+    float: left;
+}
+
+.snake-game-info-text{
     font-size: 1rem;
 }
 
@@ -89,9 +100,13 @@ body{
     border-radius: 0.512rem;
 }
 
+#snake {
+    background: #3D52D5;
+}
+
 @keyframes text {
     0%{
-        color: #242B3C;
+        color: #1D3461;
         margin-bottom: -40px;
     }
     25%{
