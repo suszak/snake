@@ -1,0 +1,108 @@
+* {
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    background: #242B3C;
+    min-height: 500px;
+    max-width: 80rem;
+    margin: 0 auto;
+}
+
+.snake-header{
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #8999A6;
+    color: #FCFCFC;
+}
+
+.snake-header-text{
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    font-size: 3rem;
+    margin-bottom: 0;
+    background: #242B3C;
+    position: relative;
+    animation: text 3s 1; 
+}
+
+.snake-header-text2{ 
+    margin-top: -5px;
+    font-size: 1.5rem;
+}
+
+.snake-game{
+    width: 600px;
+    height: 500px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.snake-game-table{
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    margin-left: 2rem; 
+}
+
+.snake-game-table-row{
+    width: 17rem;
+    height: 1.5rem;
+    margin: 0 auto;
+}
+
+.snake-game-table-row:first-child{
+    margin-top: 15px;
+}
+
+.snake-game-table-pool{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 1px;
+    background: rgb(0, 162, 255);
+    float: left;
+}
+
+.snake-game-info{
+    color: #FCFCFC;
+    height: 300px;
+    margin-top: 0px;
+}
+
+.snake-game-info-text{
+    text-transform: uppercase;
+    font-size: 1.3rem;
+}
+
+.snake-game-info-text2{
+    font-size: 1rem;
+}
+
+.snake-game-info-pause{
+    width: 7rem;
+    border: none;
+    border-radius: 0.512rem;
+}
+
+@keyframes text {
+    0%{
+        color: #242B3C;
+        margin-bottom: -40px;
+    }
+    25%{
+        letter-spacing: 30px;
+        margin-bottom: -40px;
+    }
+    50%{
+        margin-bottom: -40px;
+    }
+    75%{
+        letter-spacing: 0.15rem;
+        margin-bottom: -40px;
+    }
+}
