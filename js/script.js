@@ -2,23 +2,47 @@ let snakeArray = []; // snakeArray[0] -> eldest, snakeArray[snakeArray.length-1]
 let fruitsArray = [];
 let table = null;
 let move = 4; // 1 -> up, 2 -> down, 3 -> left, 4 -> right
-let flag = 0; // 0 -> pause, 1 -> start
+let flag = 0; // 0 -> pause, 1 -> start, 2 -> gameOver
 let game; // game refresh interval
 let fruit; // fruit generator interval
+const borderLeftArray = [];
+    for(let i = 0; i <= 19; i++){
+        borderLeftArray.push(i*20);
+    }
 
-generateStartPosition();
-firstStep();
+const borderRightArray = [];
+    for(let i = 0; i <= 19; i++){
+        borderRightArray.push(19+i*20);
+    }
+
+gameBegin();
 
 // Adding events
 document.addEventListener("DOMContentLoaded", function() {
-    document.addEventListener("keydown", changeDirection);
-    
     document.addEventListener("keydown", function(e) {
         if(e.keyCode === 32){
             if(flag === 1){
                 pauseGame();
             } else if(flag === 0){
                 gameRefresh();
+            } else if(flag === 2){
+                move = 4;
+                fruitsArray = [];
+                snakeArray = [];
+                gameBegin();
+                pauseGame();
+            }
+        }
+    });
+
+    document.addEventListener("keydown", function(e) {
+        if(flag === 1){
+            changeDirection(e);
+            nextSteps();
+
+            if (flag === 1){
+                clearInterval(game);
+                game = setInterval(nextSteps, 500);
             }
         }
     });
@@ -28,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function() {
 // This function generates random starting position
 function generateStartPosition(){
     let startPools = [];
+    snakeArray = [];
+
     for (let i = 42; i < 357; i++){
             temp = String(i)[String(i).length-1];
             if(Number(temp) > 2 && Number(temp) < 7){
@@ -47,50 +73,53 @@ function nextSteps(){
     const firstElement = snakeArray[snakeArray.length-1];
     const pools = document.querySelectorAll(".snake-game-table-pool");
 
-    switch (move) {
-        case 1:
-            if(fruitsArray.indexOf(firstElement) === -1){
-                snakeArray.shift();
-                snakeArray.push(firstElement-20);
-            } else {
-                pools[firstElement].classList.remove("snake-game-table-fruit");
-                fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
-                snakeArray.push(firstElement-20);
-            }
-            break;
-        case 2:
-            if(fruitsArray.indexOf(firstElement) === -1){
-                snakeArray.shift();
-                snakeArray.push(firstElement+20);
-            } else {
-                pools[firstElement].classList.remove("snake-game-table-fruit");
-                fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
-                snakeArray.push(firstElement+20);
-            }
-            break;
-        case 3:
-            if(fruitsArray.indexOf(firstElement) === -1){
-                snakeArray.shift();
-                snakeArray.push(firstElement-1);
-            } else {
-                pools[firstElement].classList.remove("snake-game-table-fruit");
-                fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
-                snakeArray.push(firstElement-1);
-            }
-            break;
-        case 4:
-            if(fruitsArray.indexOf(firstElement) === -1){
-                snakeArray.shift();
-                snakeArray.push(firstElement+1);
-            } else {
-                pools[firstElement].classList.remove("snake-game-table-fruit");
-                fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
-                snakeArray.push(firstElement+1);
-            }
-            break;
-    }
+    if(!wallCollision(firstElement) && !myselfCollision(firstElement)){
+        switch (move) {
+            case 1:
+                if(fruitsArray.indexOf(firstElement) === -1){
+                    snakeArray.shift();
+                    snakeArray.push(firstElement-20);
+                } else {
+                    pools[firstElement].classList.remove("snake-game-table-fruit");
+                    fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
+                    snakeArray.push(firstElement-20);
+                }
+                break;
+            case 2:
+                if(fruitsArray.indexOf(firstElement) === -1){
+                    snakeArray.shift();
+                    snakeArray.push(firstElement+20);
+                } else {
+                    pools[firstElement].classList.remove("snake-game-table-fruit");
+                    fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
+                    snakeArray.push(firstElement+20);
+                }
+                break;
+            case 3:
+                if(fruitsArray.indexOf(firstElement) === -1){
+                    snakeArray.shift();
+                    snakeArray.push(firstElement-1);
+                } else {
+                    pools[firstElement].classList.remove("snake-game-table-fruit");
+                    fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
+                    snakeArray.push(firstElement-1);
+                }
+                break;
+            case 4:
+                if(fruitsArray.indexOf(firstElement) === -1){
+                    snakeArray.shift();
+                    snakeArray.push(firstElement+1);
+                } else {
+                    pools[firstElement].classList.remove("snake-game-table-fruit");
+                    fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
+                    snakeArray.push(firstElement+1);
+                }
+                break;
+        }
 
-    gameStep();
+    
+        gameStep();
+    }
 }
 
 
@@ -98,6 +127,7 @@ function nextSteps(){
 function firstStep(){
     table = document.querySelector(".snake-game-table");
     let iterator = 0;
+    let rows = document.querySelectorAll(".snake-game-table-row");
 
     for (let i = 0; i < 20; i++){
         const row = document.createElement("div");
@@ -118,7 +148,11 @@ function firstStep(){
             iterator++;
         }
         
-        table.append(row);
+        if (flag === 2){
+            table.replaceChild(row, rows[i]);
+        } else {
+            table.append(row);
+        }
     }
 
     const score = document.querySelector("#score");
@@ -187,11 +221,67 @@ function generateFruit(){
     }
 }
 
-// This function creates interval, and we refresh our site
+// This function checks if you hit a wall
+function wallCollision(firstElement){
+    switch (move){
+        case 1:
+            if(firstElement < 20){
+                pauseGame();
+                document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
+                alert("Game over!\nIf you want to restart game - press spacebar!");
+                flag = 2;
+                return 1;
+            }
+            break;
+        case 2:
+            if(firstElement > 379){
+                pauseGame();
+                document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
+                alert("Game over!\nIf you want to restart game - press spacebar!");
+                flag = 2;
+                return 1;
+            }
+            break;
+        case 3:
+            if(borderLeftArray.indexOf(firstElement) !== -1){
+                pauseGame();
+                document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
+                alert("Game over!\nIf you want to restart game - press spacebar!");
+                flag = 2;  
+                return 1;
+            }
+            break;
+        case 4:
+            if(borderRightArray.indexOf(firstElement) !== -1){
+                pauseGame();
+                document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
+                alert("Game over!\nIf you want to restart game - press spacebar!");
+                flag = 2;  
+                return 1;
+            }
+            break;
+    }
+    return 0;
+}
+
+function myselfCollision(firstElement){
+    if(snakeArray.indexOf(firstElement) !== (snakeArray.length-1) && snakeArray.indexOf(firstElement) !== -1){
+        pauseGame();
+        document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
+        alert("Game over!\nIf you want to restart game - press spacebar!");
+        flag = 2;  
+        return 1;
+    } else {
+        return 0
+    };
+}
+
+// This function creates interval (game running)
 function gameRefresh(){
     game = setInterval(nextSteps, 500);
     flag = 1;
-    fruit = setInterval(generateFruit, 10000);
+    fruit = setInterval(generateFruit, 5000);
+    document.querySelector("#state").innerText = "Running";
 }
 
 // This function clears interval (pausing game)
@@ -199,4 +289,10 @@ function pauseGame(){
     clearInterval(game);
     flag = 0;
     clearInterval(fruit);
+    document.querySelector("#state").innerText = "Paused";
+}
+
+function gameBegin(){
+    generateStartPosition();
+    firstStep();
 }

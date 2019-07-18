@@ -43,17 +43,21 @@ body{
 
 .snake-game{
     width: 65rem;
-    height: 500px;
+    height: 600px;
     margin: 0 auto;
+    padding: 100px 0  0 110px;
     display: flex;
     align-items: center;
 }
 
 .snake-game-table{
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 600px;
     margin: 0 auto;
-    margin-left: 2rem; 
+    margin-left: 2rem;
+    margin-right: 2rem; 
+    display: block;
+    float: left;
 }
 
 .snake-game-table-row{
@@ -77,8 +81,10 @@ body{
 
 .snake-game-info{
     color: #FBFFF1;
-    height: 400px;
+    height: 600px;
     margin-top: 0px;
+    display: block;
+    float: left;    
 }
 
 .snake-game-info-header{
@@ -96,12 +102,6 @@ body{
     font-size: 1rem;
 }
 
-.snake-game-info-button{
-    width: 7rem;
-    border: none;
-    border-radius: 0.512rem;
-}
-
 .snake-game-table-fruit{
     background: red;
 }
@@ -117,7 +117,7 @@ body{
 }
 
 #score{
-    width: 7rem;
+    width: 8rem;
 }
 
 @keyframes text {

@@ -1,7 +1,5 @@
 <!-- TODO:
-1) Collision with walls
-2) Collision with myself
-3) Bug with changing direction -->
+1) Change alert with modal div -->
 
 <!DOCTYPE html>
 <html>
@@ -19,7 +17,7 @@
         <section class="snake-game">
             <div class="snake-game-info">
                 <h1 class="snake-game-info-header" id="score"></h1>
-                <h1 class="snake-game-info-header" id="state"></h1>
+                <h1 class="snake-game-info-header" id="state">Paused</h1>
             </div>
 
             <div class="snake-game-table">
@@ -28,7 +26,8 @@
 
             <div class="snake-game-info">
                 <h1 class="snake-game-info-header">How to play?</h1>
-                <h2 class="snake-game-info-text">Press "start" or spacebar to begin game.</h2>
+                <h2 class="snake-game-info-text">Press spacebar to begin game or pause.</h2>
+                <h2 class="snake-game-info-text">Hold keyboard arrows to speed up your snake.</h2>
                 <h2 class="snake-game-info-text">Use keyboard arrows:</h2>
                 <div class="snake-game-info-arrow"><i class="fas fa-arrow-up"></i></div><h2 class="snake-game-info-text">top</h2>
                 <div class="snake-game-info-arrow"><i class="fas fa-arrow-down"></i></div><h2 class="snake-game-info-text">bottom</h2>
