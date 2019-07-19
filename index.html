@@ -1,5 +1,5 @@
 <!-- TODO:
-1) Change alert with modal div -->
+1) Change alert with modal div (modal added, need to change function which restarts game) -->
 
 <!DOCTYPE html>
 <html>
@@ -37,6 +37,19 @@
                 <h2 class="snake-game-info-text">Try not to hit the wall and do not eat yourself!</h2> 
             </div>
         </section>
+
+        <div class="snake-modal">
+            <div class="snake-modal-baner">
+                <span>Info box</span>
+                <button class="snake-modal-baner-button button" title="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="snake-modal-text">
+                <p>Game Over!</p>
+                <p>Close this dialog and play again.</p>
+                <button class="snake-modal-button button" title="Close">OK</button>
+            </div>
+        </div>
+
         <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
         <script src="js/script.js"></script>
     </body>

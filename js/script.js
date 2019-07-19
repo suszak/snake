@@ -46,6 +46,15 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     });
+
+    const modal = document.querySelector(".snake-modal");
+    const buttons = modal.querySelectorAll(".button");
+
+    console.log(buttons);
+    for(let i = 0; i < buttons.length; i++){
+        console.log(buttons[i]);
+        buttons[i].addEventListener("click", closeModal);
+    }
 });
 
 
@@ -228,7 +237,8 @@ function wallCollision(firstElement){
             if(firstElement < 20){
                 pauseGame();
                 document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
-                alert("Game over!\nIf you want to restart game - press spacebar!");
+                document.querySelector(".snake-game").setAttribute("style", "filter:blur(5px)");
+                document.querySelector(".snake-modal").setAttribute("style", "display:block");
                 flag = 2;
                 return 1;
             }
@@ -237,7 +247,8 @@ function wallCollision(firstElement){
             if(firstElement > 379){
                 pauseGame();
                 document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
-                alert("Game over!\nIf you want to restart game - press spacebar!");
+                document.querySelector(".snake-game").setAttribute("style", "filter:blur(5px)");
+                document.querySelector(".snake-modal").setAttribute("style", "display:block");
                 flag = 2;
                 return 1;
             }
@@ -246,7 +257,8 @@ function wallCollision(firstElement){
             if(borderLeftArray.indexOf(firstElement) !== -1){
                 pauseGame();
                 document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
-                alert("Game over!\nIf you want to restart game - press spacebar!");
+                document.querySelector(".snake-game").setAttribute("style", "filter:blur(5px)");
+                document.querySelector(".snake-modal").setAttribute("style", "display:block");
                 flag = 2;  
                 return 1;
             }
@@ -255,7 +267,8 @@ function wallCollision(firstElement){
             if(borderRightArray.indexOf(firstElement) !== -1){
                 pauseGame();
                 document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
-                alert("Game over!\nIf you want to restart game - press spacebar!");
+                document.querySelector(".snake-game").setAttribute("style", "filter:blur(5px)");
+                document.querySelector(".snake-modal").setAttribute("style", "display:block");
                 flag = 2;  
                 return 1;
             }
@@ -264,6 +277,7 @@ function wallCollision(firstElement){
     return 0;
 }
 
+// This function checks if u hit yourself
 function myselfCollision(firstElement){
     if(snakeArray.indexOf(firstElement) !== (snakeArray.length-1) && snakeArray.indexOf(firstElement) !== -1){
         pauseGame();
@@ -274,6 +288,13 @@ function myselfCollision(firstElement){
     } else {
         return 0
     };
+}
+
+// This function closes modal and restarts game
+function closeModal(){
+    document.querySelector(".snake-game").setAttribute("style", "filter:none");
+    document.querySelector(".snake-modal").setAttribute("style", "display:none");
+    console.log("zamknięte!");
 }
 
 // This function creates interval (game running)

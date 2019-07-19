@@ -106,6 +106,76 @@ body{
     background: red;
 }
 
+.snake-modal{
+    position: absolute;
+    display: none;
+    width: 400px;
+    height: 180px;
+    top: 50%;
+    left: 50%;
+    border: solid 2px black;
+    box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.75);
+    background: #FBFFF1;
+    transform: translate(-50%,-50%);
+}
+
+.snake-modal-baner{
+    width: 100%;
+    height: 25px;
+    background: black;
+    opacity: 0.7;
+    color: #FBFFF1;
+    display: flex;
+    align-items: center;
+}
+
+.snake-modal-baner span{
+    margin-left: 5px;
+}
+
+.snake-modal-baner .fa-times{
+    transition: 0.3s all;
+    cursor: pointer;
+}
+
+.snake-modal-baner-button{
+    margin-left: 310px;
+    color: #FBFFF1;
+    border: 0;
+    background: none;
+}
+
+.snake-modal-baner .fa-times:hover{
+    color: red;
+}
+
+.snake-modal-text{
+    text-align: center;
+    padding-top: 15px;
+}
+
+.snake-modal-text p:first-child{
+    font-weight: bold;
+}
+
+.snake-modal-button{
+    margin-top: 15px;
+    border: none;
+    border-radius: 500px;
+    height: 25px;
+    width: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s all;
+    background: #8999A6;
+    color: black;
+}
+
+.snake-modal-button:hover{
+    color: #FBFFF1;
+    background: #3D52D5;
+}
+
 /* ID */
 #snake {
     background: #3D52D5;
