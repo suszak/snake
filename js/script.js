@@ -25,12 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 pauseGame();
             } else if(flag === 0){
                 gameRefresh();
-            } else if(flag === 2){
-                move = 4;
-                fruitsArray = [];
-                snakeArray = [];
-                gameBegin();
-                pauseGame();
             }
         }
     });
@@ -50,9 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const modal = document.querySelector(".snake-modal");
     const buttons = modal.querySelectorAll(".button");
 
-    console.log(buttons);
     for(let i = 0; i < buttons.length; i++){
-        console.log(buttons[i]);
         buttons[i].addEventListener("click", closeModal);
     }
 });
@@ -235,41 +227,25 @@ function wallCollision(firstElement){
     switch (move){
         case 1:
             if(firstElement < 20){
-                pauseGame();
-                document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
-                document.querySelector(".snake-game").setAttribute("style", "filter:blur(5px)");
-                document.querySelector(".snake-modal").setAttribute("style", "display:block");
-                flag = 2;
+                gameOver();
                 return 1;
             }
             break;
         case 2:
             if(firstElement > 379){
-                pauseGame();
-                document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
-                document.querySelector(".snake-game").setAttribute("style", "filter:blur(5px)");
-                document.querySelector(".snake-modal").setAttribute("style", "display:block");
-                flag = 2;
+               gameOver();
                 return 1;
             }
             break;
         case 3:
             if(borderLeftArray.indexOf(firstElement) !== -1){
-                pauseGame();
-                document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
-                document.querySelector(".snake-game").setAttribute("style", "filter:blur(5px)");
-                document.querySelector(".snake-modal").setAttribute("style", "display:block");
-                flag = 2;  
+                gameOver(); 
                 return 1;
             }
             break;
         case 4:
             if(borderRightArray.indexOf(firstElement) !== -1){
-                pauseGame();
-                document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
-                document.querySelector(".snake-game").setAttribute("style", "filter:blur(5px)");
-                document.querySelector(".snake-modal").setAttribute("style", "display:block");
-                flag = 2;  
+                gameOver();  
                 return 1;
             }
             break;
@@ -280,10 +256,7 @@ function wallCollision(firstElement){
 // This function checks if u hit yourself
 function myselfCollision(firstElement){
     if(snakeArray.indexOf(firstElement) !== (snakeArray.length-1) && snakeArray.indexOf(firstElement) !== -1){
-        pauseGame();
-        document.querySelector("#state").innerHTML = "<p style='color:red'>Game over</p><p>Press spacebar</p>";
-        alert("Game over!\nIf you want to restart game - press spacebar!");
-        flag = 2;  
+        gameOver(); 
         return 1;
     } else {
         return 0
@@ -294,7 +267,11 @@ function myselfCollision(firstElement){
 function closeModal(){
     document.querySelector(".snake-game").setAttribute("style", "filter:none");
     document.querySelector(".snake-modal").setAttribute("style", "display:none");
-    console.log("zamknięte!");
+    move = 4;
+    fruitsArray = [];
+    snakeArray = [];
+    gameBegin();
+    pauseGame();
 }
 
 // This function creates interval (game running)
@@ -313,6 +290,16 @@ function pauseGame(){
     document.querySelector("#state").innerText = "Paused";
 }
 
+// This function is called when player lost game
+function gameOver(){
+    pauseGame();
+    document.querySelector("#modalScore").innerText = "Final score: "+(snakeArray.length-2);
+    document.querySelector(".snake-game").setAttribute("style", "filter:blur(2px)");
+    document.querySelector(".snake-modal").setAttribute("style", "display:block");
+    flag = 2;
+}
+
+// This function initializes game
 function gameBegin(){
     generateStartPosition();
     firstStep();
