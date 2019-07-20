@@ -11,6 +11,7 @@ let mouseFlag = null; // show which border will we use, while mouse initialize
 let mouseMoves = 0; // counts mouse moves (max 20);
 let mouseInterval; // mouse interval
 let mouseTimeout; // mouse timeout
+let mouseScore = 1; // flag which shows if we can add point 1 -> yes, 0 -> no
 const borderLeftArray = []; // array with left border values
     for(let i = 0; i <= 19; i++){
         borderLeftArray.push(i*20);
@@ -100,26 +101,32 @@ function nextSteps(){
     const pools = document.querySelectorAll(".snake-game-table-pool");
 
     if(!wallCollision(firstElement) && !myselfCollision(firstElement)){
-        if(currentMousePosition === firstElement){
-            pools[currentMousePosition].classList.remove("snake-game-table-mouse");
-            mouseMoves = 0;
-            scoreValue += 2;
-            clearInterval(mouseInterval);
-            clearTimeout(mouseTimeout);
-            mouseTimeout = setTimeout(function(){
-                mouseFlag = generateMouse();
-            }, 10000);
-        }
+        if(mouseScore === 1){
+            if(currentMousePosition === firstElement){
+                pools[currentMousePosition].classList.remove("snake-game-table-mouse");
+                clearInterval(mouseInterval);
+                clearTimeout(mouseTimeout);
+                mouseTimeout = setTimeout(function(){
+                    mouseFlag = generateMouse();
+                }, 10000);
+                mouseMoves = 0;
+                scoreValue += 2;
+                mouseScore = 0;
+                setTimeout(addMousePoint, 700);
+            }
 
-        if(currentMousePosition === snakeArray[snakeArray.length-2]){
-            pools[currentMousePosition].classList.remove("snake-game-table-mouse");
-            mouseMoves = 0;
-            scoreValue += 2;
-            clearInterval(mouseInterval);
-            clearTimeout(mouseTimeout);
-            mouseTimeout = setTimeout(function(){
-                mouseFlag = generateMouse();
-            }, 10000);
+            if(currentMousePosition === snakeArray[snakeArray.length-2]){
+                pools[currentMousePosition].classList.remove("snake-game-table-mouse");
+                clearInterval(mouseInterval);
+                clearTimeout(mouseTimeout);
+                mouseTimeout = setTimeout(function(){
+                    mouseFlag = generateMouse();
+                }, 10000);
+                mouseMoves = 0;
+                scoreValue += 2;
+                mouseScore = 0;
+                setTimeout(addMousePoint, 700);
+            }
         }
 
         switch (move) {
@@ -193,7 +200,7 @@ function firstStep(){
                     pool.id = "snakeFirst";
                 }
             }
-            
+
             row.appendChild(pool);
             iterator++;
         }
@@ -377,6 +384,7 @@ function closeModal(){
     document.querySelector(".snake-game").setAttribute("style", "filter:none");
     document.querySelector(".snake-modal").setAttribute("style", "display:none");
     move = 4;
+    scoreValue = 0;
     fruitsArray = [];
     snakeArray = [];
     gameBegin();
@@ -415,6 +423,11 @@ function gameOver(){
 
 // This function initializes game
 function gameBegin(){
+    scoreValue = 0;
     generateStartPosition();
     firstStep();
+}
+
+function addMousePoint(){
+    mouseScore = 1;
 }
