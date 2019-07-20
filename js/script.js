@@ -1,21 +1,40 @@
 let snakeArray = []; // snakeArray[0] -> eldest, snakeArray[snakeArray.length-1] ->  latest
 let fruitsArray = [];
 let table = null;
+let scoreValue = 0;
 let move = 4; // 1 -> up, 2 -> down, 3 -> left, 4 -> right
 let flag = 0; // 0 -> pause, 1 -> start, 2 -> gameOver
 let game; // game refresh interval
 let fruit; // fruit generator interval
-const borderLeftArray = [];
+let currentMousePosition; // current mouse position
+let mouseFlag = null; // show which border will we use, while mouse initialize
+let mouseMoves = 0; // counts mouse moves (max 20);
+let mouseInterval; // mouse interval
+let mouseTimeout; // mouse timeout
+const borderLeftArray = []; // array with left border values
     for(let i = 0; i <= 19; i++){
         borderLeftArray.push(i*20);
     }
 
-const borderRightArray = [];
+const borderRightArray = []; // array with right border values
     for(let i = 0; i <= 19; i++){
         borderRightArray.push(19+i*20);
     }
 
+const borderTopArray = []; // array with top border values
+    for(let i = 0; i <= 19; i++){
+        borderTopArray.push(i);
+    }
+
+const borderBottomArray = []; // array with bottom border values
+    for(let i = 380; i <= 399; i++){
+        borderBottomArray.push(i);
+    }
+
+
+// Initialize game:
 gameBegin();
+
 
 // Adding events
 document.addEventListener("DOMContentLoaded", function() {
@@ -27,9 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 gameRefresh();
             }
         }
-    });
 
-    document.addEventListener("keydown", function(e) {
         if(flag === 1){
             changeDirection(e);
             nextSteps();
@@ -47,6 +64,14 @@ document.addEventListener("DOMContentLoaded", function() {
     for(let i = 0; i < buttons.length; i++){
         buttons[i].addEventListener("click", closeModal);
     }
+
+    document.addEventListener("keydown", function(e){
+        if(modal.getAttribute("style") === "display:block"){
+            if(e.keyCode === 32 || e.keyCode === 13 || e.keyCode === 27){
+                closeModal();
+            }
+        }
+    });
 });
 
 
@@ -75,6 +100,28 @@ function nextSteps(){
     const pools = document.querySelectorAll(".snake-game-table-pool");
 
     if(!wallCollision(firstElement) && !myselfCollision(firstElement)){
+        if(currentMousePosition === firstElement){
+            pools[currentMousePosition].classList.remove("snake-game-table-mouse");
+            mouseMoves = 0;
+            scoreValue += 2;
+            clearInterval(mouseInterval);
+            clearTimeout(mouseTimeout);
+            mouseTimeout = setTimeout(function(){
+                mouseFlag = generateMouse();
+            }, 10000);
+        }
+
+        if(currentMousePosition === snakeArray[snakeArray.length-2]){
+            pools[currentMousePosition].classList.remove("snake-game-table-mouse");
+            mouseMoves = 0;
+            scoreValue += 2;
+            clearInterval(mouseInterval);
+            clearTimeout(mouseTimeout);
+            mouseTimeout = setTimeout(function(){
+                mouseFlag = generateMouse();
+            }, 10000);
+        }
+
         switch (move) {
             case 1:
                 if(fruitsArray.indexOf(firstElement) === -1){
@@ -84,6 +131,7 @@ function nextSteps(){
                     pools[firstElement].classList.remove("snake-game-table-fruit");
                     fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
                     snakeArray.push(firstElement-20);
+                    scoreValue++;
                 }
                 break;
             case 2:
@@ -94,6 +142,7 @@ function nextSteps(){
                     pools[firstElement].classList.remove("snake-game-table-fruit");
                     fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
                     snakeArray.push(firstElement+20);
+                    scoreValue++;
                 }
                 break;
             case 3:
@@ -104,6 +153,7 @@ function nextSteps(){
                     pools[firstElement].classList.remove("snake-game-table-fruit");
                     fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
                     snakeArray.push(firstElement-1);
+                    scoreValue++;
                 }
                 break;
             case 4:
@@ -114,11 +164,10 @@ function nextSteps(){
                     pools[firstElement].classList.remove("snake-game-table-fruit");
                     fruitsArray.splice(fruitsArray.indexOf(firstElement), 1);
                     snakeArray.push(firstElement+1);
+                    scoreValue++;
                 }
                 break;
-        }
-
-    
+        }   
         gameStep();
     }
 }
@@ -144,7 +193,7 @@ function firstStep(){
                     pool.id = "snakeFirst";
                 }
             }
-
+            
             row.appendChild(pool);
             iterator++;
         }
@@ -157,7 +206,7 @@ function firstStep(){
     }
 
     const score = document.querySelector("#score");
-    score.innerText = "Score: "+(snakeArray.length-2);
+    score.innerText = "Score: "+ scoreValue;
 }
 
 
@@ -179,7 +228,7 @@ function gameStep(){
     }
 
     const score = document.querySelector("#score");
-    score.innerText = "Score: "+(snakeArray.length-2);
+    score.innerText = "Score: "+ scoreValue;
 }
 
 // This function reads keyCode, and change our flag(move), which tell us about direction of snake
@@ -208,6 +257,7 @@ function changeDirection(e){
     }
 }
 
+// This function generates random poll, which will be fruit
 function generateFruit(){
     if(fruitsArray.length < 5){
         let randomPool;
@@ -219,6 +269,65 @@ function generateFruit(){
         fruitsArray.push(randomPool);
         const pools = document.querySelectorAll(".snake-game-table-pool");
         pools[randomPool].classList.add("snake-game-table-fruit");
+    }
+}
+
+// This function generates mouse, which is moving through the table
+function generateMouse(){
+    const rand = Math.floor(Math.random()*4);
+    const pos = Math.floor(Math.random()*20);
+    mouseMoves = 1;
+    
+    switch (rand){
+        case 0:
+            currentMousePosition = borderTopArray[pos];
+            break;
+        case 1:
+            currentMousePosition = borderLeftArray[pos];
+            break;
+        case 2:
+            currentMousePosition = borderBottomArray[pos];
+            break;
+        case 3:
+            currentMousePosition = borderRightArray[pos];
+            break;
+    }
+    mouseInterval = setInterval(moveMouse, 500);
+
+    const pools = document.querySelectorAll(".snake-game-table-pool");
+    pools[currentMousePosition].classList.add("snake-game-table-mouse");
+
+    return rand;
+}
+
+// This function moves mouse through the table
+function moveMouse(){
+    const pools = document.querySelectorAll(".snake-game-table-pool");
+    pools[currentMousePosition].classList.remove("snake-game-table-mouse");
+
+    if (mouseMoves < 20){ 
+        switch (mouseFlag){
+            case 0:
+                currentMousePosition += 20;
+                break;
+            case 1:
+                currentMousePosition++;
+                break;
+            case 2:
+                currentMousePosition -= 20;
+                break;
+            case 3:
+                currentMousePosition--;
+                break;
+        }
+        pools[currentMousePosition].classList.add("snake-game-table-mouse");
+        mouseMoves++;  
+    } else {
+        mouseMoves = 0;
+        clearInterval(mouseInterval);
+        mouseTimeout = setTimeout(function(){
+            mouseFlag = generateMouse();
+        }, 10000);
     }
 }
 
@@ -276,6 +385,9 @@ function closeModal(){
 
 // This function creates interval (game running)
 function gameRefresh(){
+    mouseTimeout = setTimeout(function(){
+        mouseFlag = generateMouse();
+    }, 10000);
     game = setInterval(nextSteps, 500);
     flag = 1;
     fruit = setInterval(generateFruit, 5000);
@@ -285,6 +397,8 @@ function gameRefresh(){
 // This function clears interval (pausing game)
 function pauseGame(){
     clearInterval(game);
+    clearTimeout(mouseTimeout);
+    clearInterval(mouseInterval);
     flag = 0;
     clearInterval(fruit);
     document.querySelector("#state").innerText = "Paused";
@@ -293,7 +407,7 @@ function pauseGame(){
 // This function is called when player lost game
 function gameOver(){
     pauseGame();
-    document.querySelector("#modalScore").innerText = "Final score: "+(snakeArray.length-2);
+    document.querySelector("#modalScore").innerText = "Final score: "+scoreValue;
     document.querySelector(".snake-game").setAttribute("style", "filter:blur(2px)");
     document.querySelector(".snake-modal").setAttribute("style", "display:block");
     flag = 2;
