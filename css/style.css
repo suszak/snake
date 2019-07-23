@@ -102,6 +102,16 @@ body{
     font-size: 1rem;
 }
 
+.snake-game-info-button{
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 512px;
+    text-align: center;
+    font-weight: 1000;
+    cursor: pointer;
+}
+
 .snake-game-table-fruit{
     background: red;
 }
@@ -193,6 +203,10 @@ body{
 
 #score{
     width: 8rem;
+}
+
+#state{
+    margin-bottom: 150px;
 }
 
 @keyframes text {
