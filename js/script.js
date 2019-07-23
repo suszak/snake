@@ -48,13 +48,22 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        if(flag === 1){
-            changeDirection(e);
-            nextSteps();
-
-            if (flag === 1){
-                clearInterval(game);
-                game = setInterval(nextSteps, 500);
+        
+        if(e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40){
+            if(flag === 1){
+                if(changeDirection(e)){
+                    nextSteps();
+                
+                    if (flag === 1){
+                        clearInterval(game);
+                        game = setInterval(nextSteps, 500);
+                    }
+                }
+            } else if(flag === 0){
+                if(changeDirection(e)){
+                    gameRefresh();
+                    nextSteps();
+                }
             }
         }
     });
@@ -243,24 +252,35 @@ function changeDirection(e){
     switch (e.keyCode) {
         case 38: 
         // up
-            if(move !== 2)
-            move = 1;
-            break;
+            if(move !== 2) {
+                move = 1;
+                return 1;
+            }
+            return 0;
         case 40:
         // down
-            if(move !== 1)
-            move = 2;
-            break;    
+            if(move !== 1){
+                move = 2;
+                return 1;
+            }
+            return 0;
+            
         case 37: 
         // left
-            if(move !== 4)
-            move = 3;
-            break;
+            if(move !== 4){
+                move = 3;
+                return 1;
+            }
+            return 0;
         case 39: 
         // right
-            if(move !== 3)
-            move = 4;
-            break;
+            if(move !== 3){
+                move = 4;
+                return 1;
+            }
+            return 0;
+        default:
+            return 0;
     }
 }
 
@@ -385,6 +405,7 @@ function closeModal(){
     document.querySelector(".snake-modal").setAttribute("style", "display:none");
     move = 4;
     scoreValue = 0;
+    mouseMoves = 0;
     fruitsArray = [];
     snakeArray = [];
     gameBegin();
@@ -393,9 +414,14 @@ function closeModal(){
 
 // This function creates interval (game running)
 function gameRefresh(){
-    mouseTimeout = setTimeout(function(){
-        mouseFlag = generateMouse();
-    }, 10000);
+    if (mouseMoves === 0){
+        mouseTimeout = setTimeout(function(){
+            mouseFlag = generateMouse();
+        }, 10000);
+    } else {
+        mouseInterval = setInterval(moveMouse, 500);
+    }
+    
     game = setInterval(nextSteps, 500);
     flag = 1;
     fruit = setInterval(generateFruit, 5000);
@@ -428,6 +454,7 @@ function gameBegin(){
     firstStep();
 }
 
+// This funtion unlocks adding point from eating mouse
 function addMousePoint(){
     mouseScore = 1;
 }
