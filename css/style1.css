@@ -1,0 +1,167 @@
+:root{
+    --bg-color: black;
+    --font-color: white;
+}
+
+*{
+    font-family: sans-serif;
+    color: var(--font-color);
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 1000px;
+    width: 98%;
+    height: 900px; 
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* header section */
+header {
+    width: 90%;
+    height: 125px;
+    border-bottom: 2px solid white;
+}
+
+.snake-header-big {
+    font-size: 50px;
+    text-transform: uppercase;
+    background-color: var(--bg-color);
+    position: relative;
+    margin-bottom: 0;
+    letter-spacing: 4px;
+}
+
+.snake-header-small {
+    margin-top: -5px;
+    font-size: 25px;
+}
+
+/* main section */
+main {
+    width: 90%;
+    height: 700px;
+    display: flex;
+    flex-direction: row;
+}
+
+/* main left */
+.snake-game-info-left {
+    height: 100%;
+    width: 20%;
+}
+
+.snake-game-info-header {
+    font-size: 30px;
+    color: rgb(74, 74, 240);
+}
+
+.snake-game-info-text {
+    font-size: 22px;
+}
+
+/* main mid */
+.snake-game-table{
+    height: 100%;
+    width: 60%;
+    margin: 0 auto;
+    margin-left: 15px;
+    margin-right: 15px; 
+}
+
+.snake-game-table-row{
+    width: 550px;
+    height: 27px;
+    margin: 0 auto;
+}
+
+.snake-game-table-row:first-child{
+    margin-top: 15px;
+}
+
+.snake-game-table-pool{
+    width: 25px;
+    height: 25px;
+    margin: 1px;
+    background: #FBFFF1;
+    float: left;
+    transition: background-color 0.15s;
+}
+
+#snake {
+    background-color: rgb(74, 74, 240);
+}
+
+#fruit {
+    background-color: red;
+}
+
+#mouse {
+    background-color: orange;
+}
+
+/* main right */
+.snake-game-info-right {
+    height: 100%;
+    width: 20%;
+}
+
+.snake-game-info-right .snake-game-info-header {
+    font-size: 25px;
+}
+
+.snake-game-info-right .snake-game-info-text {
+    font-size: 17px;
+}
+
+.snake-game-info-right img {
+    background: white;
+    transition: 1s all;
+    width: 40px;
+    height: 40px;
+}
+#right {
+    transform: rotate(90deg);
+}
+
+#left {
+    transform: rotate(270deg);
+}
+
+#down {
+    transform: rotate(180deg);
+}
+
+.snake-game-info-right img:hover {
+    transform: scale(1.2);
+}
+
+#down:hover {
+    transform: rotate(180deg) scale(1.2);
+}
+
+#left:hover {
+    transform: rotate(270deg) scale(1.2);
+}
+
+#right:hover {
+    transform: rotate(90deg) scale(1.2);
+}
+
+/* footer section */
+footer {
+    display: block;
+    width: 90%;
+    height: 100px;
+    font-size: 10px;
+    bottom: 0;
+}
+
+/* modal */
+.snake-modal {
+    display: none;
+}
