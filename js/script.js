@@ -270,6 +270,7 @@ function changeDirection(e){
                 move = 1;
                 return 1;
             }
+            
             return 0;
         case 40:
         // down
@@ -443,7 +444,7 @@ function gameSpeedChange(value){
     switch (gameSpeed){
         case 1:
             speedMultiplicator = 2;
-            speedStatus.innerText = "Easy";
+            speedStatus.innerText = "Boring";
             break;
         case 2:
             speedMultiplicator = 1;
