@@ -1,68 +1,82 @@
-/* color set: 
-https://coolors.co/1d3461-090c9b-3d52d5-b4c5e4-fbfff1 
-*/
+:root{
+    --bg-color: black;
+    --font-color: white;
+}
 
-* {
+*{
     font-family: sans-serif;
     box-sizing: border-box;
 }
 
-body{
-    background: #1D3461;
-    min-height: 500px;
-    max-width: 80rem;
-    margin: 0 auto;
-}
-
-/* Class */
-.snake-header{
-    height: 100px;
-    margin: 0 auto;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    border-bottom: 1px solid #8999A6;
-    color: #FBFFF1;
-}
-
-.snake-header-big{
-    text-transform: uppercase;
-    letter-spacing: 0.15rem;
-    font-size: 3rem;
-    margin-bottom: 0;
-    background: #1D3461;
-    color: #B4C5E4;
-    position: relative;
-    animation: text 3s 1; 
-}
-
-.snake-header-small{ 
-    margin-top: -5px;
-    font-size: 1.5rem;
-}
-
-.snake-game{
-    width: 65rem;
-    height: 600px;
-    margin: 0 auto;
-    padding: 100px 0  0 110px;
+body {
+    min-width: 1000px;
+    width: 98%;
+    height: 900px; 
+    background-color: var(--bg-color);
     display: flex;
     align-items: center;
+    flex-direction: column;
+    text-align: center;
 }
 
+/* header section */
+header {
+    color: var(--font-color);
+    width: 90%;
+    height: 155px;
+    border-bottom: 2px solid white;
+}
+
+.snake-header-big {
+    font-size: 50px;
+    text-transform: uppercase;
+    background-color: var(--bg-color);
+    position: relative;
+    margin-bottom: 0;
+    letter-spacing: 4px;
+} 
+
+.snake-header-small {
+    margin-top: -5px;
+    font-size: 25px;
+}
+
+/* main section */
+main {
+    color: var(--font-color);
+    width: 90%;
+    height: 700px;
+    display: flex;
+    flex-direction: row;
+}
+
+/* main left */
+.snake-game-info-left {
+    height: 100%;
+    width: 20%;
+}
+
+.snake-game-info-header {
+    font-size: 30px;
+    color: rgb(74, 74, 240);
+}
+
+.snake-game-info-text {
+    font-size: 22px;
+}
+
+/* main mid */
 .snake-game-table{
-    width: 600px;
-    height: 600px;
+    height: 100%;
+    width: 60%;
     margin: 0 auto;
-    margin-left: 2rem;
-    margin-right: 2rem; 
-    display: block;
-    float: left;
+    margin-left: 15px;
+    margin-right: 15px; 
 }
 
 .snake-game-table-row{
-    width: 34rem;
-    height: 1.5rem;
+    width: 550px;
+    height: 27px;
     margin: 0 auto;
 }
 
@@ -71,46 +85,96 @@ body{
 }
 
 .snake-game-table-pool{
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 25px;
+    height: 25px;
     margin: 1px;
     background: #FBFFF1;
     float: left;
     transition: background-color 0.15s;
 }
 
-.snake-game-info{
-    color: #FBFFF1;
-    height: 600px;
-    margin-top: 0px;
-    display: block;
-    float: left;    
+.snake-game-table-fruit {
+    background-color: red;
 }
 
-.snake-game-info-header{
-    text-transform: uppercase;
-    font-size: 1.3rem;
+#snake, #snakeFirst{
+    background-color: rgb(74, 74, 240);
 }
 
-.snake-game-info-arrow{
-    color: #3D52D5;
-    margin-right: 10px;
-    float: left;
-}
-
-.snake-game-info-text{
-    font-size: 1rem;
-}
-
-.snake-game-table-fruit{
-    background: red;
-}
-
-.snake-game-table-mouse{
-    background: orange;
+#snakeFirst{
     animation: blink 2s infinite;
 }
 
+.snake-game-table-mouse {
+    background-color: orange;
+    animation: blink 1s infinite;
+}
+
+
+
+/* main right */
+.snake-game-info-right {
+    height: 100%;
+    width: 20%;
+}
+
+.snake-game-info-right .snake-game-info-header {
+    font-size: 25px;
+}
+
+.snake-game-info-right .snake-game-info-text {
+    font-size: 17px;
+}
+
+.snake-game-info-right img {
+    background: white;
+    transition: 1s all;
+    width: 40px;
+    height: 40px;
+}
+#right {
+    transform: rotate(90deg);
+}
+
+#left {
+    transform: rotate(270deg);
+}
+
+#down {
+    transform: rotate(180deg);
+}
+
+#up:hover {
+    transform: scale(1.2);
+    box-shadow: 0px 0px 10px 0.1px rgba(255,255,255,1);
+}
+
+#down:hover {
+    transform: rotate(180deg) scale(1.2);
+    box-shadow: 0px 0px 10px 0.1px rgba(255,255,255,1);
+}
+
+#left:hover {
+    transform: rotate(270deg) scale(1.2);
+    box-shadow: 0px 0px 10px 0.1px rgba(255,255,255,1);
+}
+
+#right:hover {
+    transform: rotate(90deg) scale(1.2);
+    box-shadow: 0px 0px 10px 0.1px rgba(255,255,255,1);
+}
+
+/* footer section */
+footer {
+    color: var(--font-color);
+    display: block;
+    width: 90%;
+    height: 100px;
+    font-size: 10px;
+    bottom: 0;
+}
+
+/* modal */
 .snake-modal{
     position: absolute;
     display: none;
@@ -178,49 +242,19 @@ body{
 
 .snake-modal-button:hover{
     color: #FBFFF1;
-    background: #3D52D5;
+    background: rgb(74, 74, 240);
 }
 
-/* ID */
-#snake {
-    background: #3D52D5;
-}
 
-#snakeFirst{
-    background: #3D52D5;
-    animation: blink 2s infinite;
-}
-
-#score{
-    width: 8rem;
-}
-
-@keyframes text {
-    0%{
-        color: #1D3461;
-        margin-bottom: -40px;
-    }
-    25%{
-        letter-spacing: 30px;
-        margin-bottom: -40px;
-    }
-    50%{
-        margin-bottom: -40px;
-    }
-    75%{
-        letter-spacing: 0.15rem;
-        margin-bottom: -40px;
-    }
-}
-
+/* animations */
 @keyframes blink {
     0%{
-        opacity: 0.2;
-    }
-    50%{
         opacity: 1;
     }
+    50%{
+        opacity: 0.5;
+    }
     100%{
-        opacity: 0.2;
+        opacity: 1;
     }
 }

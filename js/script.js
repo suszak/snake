@@ -2,6 +2,8 @@ let snakeArray = []; // snakeArray[0] -> eldest, snakeArray[snakeArray.length-1]
 let fruitsArray = [];
 let table = null;
 let scoreValue = 0;
+let gameSpeed = 2; // 1-> easy, 2 -> normal, 3-> hard, 4-hardcore
+let speedMultiplicator = 1;
 let move = 4; // 1 -> up, 2 -> down, 3 -> left, 4 -> right
 let flag = 0; // 0 -> pause, 1 -> start, 2 -> gameOver
 let game; // game refresh interval
@@ -47,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 gameRefresh();
             }
         }
-
         
         if(e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40){
             if(flag === 1){
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                     if (flag === 1){
                         clearInterval(game);
-                        game = setInterval(nextSteps, 500);
+                        game = setInterval(nextSteps, 500*speedMultiplicator);
                     }
                 }
             } else if(flag === 0){
@@ -66,6 +67,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         }
+
+        if(e.keyCode === 90){ // z - speedUp
+            gameSpeedChange(1);
+            pauseGame();
+            gameRefresh();
+        }
+
+        if(e.keyCode === 88){ // x - speedDown
+            gameSpeedChange(0);
+            pauseGame();
+            gameRefresh();
+        }
+
     });
 
     const modal = document.querySelector(".snake-modal");
@@ -117,11 +131,11 @@ function nextSteps(){
                 clearTimeout(mouseTimeout);
                 mouseTimeout = setTimeout(function(){
                     mouseFlag = generateMouse();
-                }, 10000);
+                }, 10000*speedMultiplicator);
                 mouseMoves = 0;
                 scoreValue += 2;
                 mouseScore = 0;
-                setTimeout(addMousePoint, 700);
+                setTimeout(addMousePoint, 700*speedMultiplicator);
             }
 
             if(currentMousePosition === snakeArray[snakeArray.length-2]){
@@ -130,11 +144,11 @@ function nextSteps(){
                 clearTimeout(mouseTimeout);
                 mouseTimeout = setTimeout(function(){
                     mouseFlag = generateMouse();
-                }, 10000);
+                }, 10000*speedMultiplicator);
                 mouseMoves = 0;
                 scoreValue += 2;
                 mouseScore = 0;
-                setTimeout(addMousePoint, 700);
+                setTimeout(addMousePoint, 700*speedMultiplicator);
             }
         }
 
@@ -256,6 +270,7 @@ function changeDirection(e){
                 move = 1;
                 return 1;
             }
+            
             return 0;
         case 40:
         // down
@@ -319,7 +334,7 @@ function generateMouse(){
             currentMousePosition = borderRightArray[pos];
             break;
     }
-    mouseInterval = setInterval(moveMouse, 500);
+    mouseInterval = setInterval(moveMouse, 500*speedMultiplicator);
 
     const pools = document.querySelectorAll(".snake-game-table-pool");
     pools[currentMousePosition].classList.add("snake-game-table-mouse");
@@ -354,7 +369,7 @@ function moveMouse(){
         clearInterval(mouseInterval);
         mouseTimeout = setTimeout(function(){
             mouseFlag = generateMouse();
-        }, 10000);
+        }, 10000*speedMultiplicator);
     }
 }
 
@@ -412,19 +427,53 @@ function closeModal(){
     pauseGame();
 }
 
+// This function changes game speed
+function gameSpeedChange(value){
+    if(value === 1){
+        // Speed up
+        if(gameSpeed < 4){
+            gameSpeed ++;
+        }
+    } else if(value === 0){
+        // Speed down
+        if(gameSpeed > 1){
+            gameSpeed--;
+        }
+    }
+    const speedStatus = document.querySelector("#gameSpeedStatus");
+    switch (gameSpeed){
+        case 1:
+            speedMultiplicator = 2;
+            speedStatus.innerText = "Boring";
+            break;
+        case 2:
+            speedMultiplicator = 1;
+            speedStatus.innerText = "Normal";
+            break;
+        case 3:
+            speedMultiplicator = 0.6;
+            speedStatus.innerText = "Hard";
+            break;
+        case 4:
+            speedMultiplicator = 0.2;
+            speedStatus.innerText = "Hardcore";
+            break;
+    }
+}
+
 // This function creates interval (game running)
 function gameRefresh(){
     if (mouseMoves === 0){
         mouseTimeout = setTimeout(function(){
             mouseFlag = generateMouse();
-        }, 10000);
+        }, 10000*speedMultiplicator);
     } else {
-        mouseInterval = setInterval(moveMouse, 500);
+        mouseInterval = setInterval(moveMouse, 500*speedMultiplicator);
     }
     
-    game = setInterval(nextSteps, 500);
+    game = setInterval(nextSteps, 500*speedMultiplicator);
     flag = 1;
-    fruit = setInterval(generateFruit, 5000);
+    fruit = setInterval(generateFruit, 5000*speedMultiplicator);
     document.querySelector("#state").innerText = "Running";
 }
 
