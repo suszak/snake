@@ -82,6 +82,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
     });
 
+    document.addEventListener("keyup", function(e) {
+        switch (e.keyCode) {
+            case 37:
+                document.querySelector("#left").classList.remove("arrow-hover");
+                break;
+            case 38:
+                document.querySelector("#up").classList.remove("arrow-hover");
+                break;
+            case 39:
+                document.querySelector("#right").classList.remove("arrow-hover");
+                break;
+            case 40:
+                document.querySelector("#down").classList.remove("arrow-hover");
+                break;
+        }
+    })
+
     const modal = document.querySelector(".snake-modal");
     const buttons = modal.querySelectorAll(".button");
 
@@ -268,6 +285,7 @@ function changeDirection(e){
         // up
             if(move !== 2) {
                 move = 1;
+                document.querySelector("#up").classList.add("arrow-hover");
                 return 1;
             }
             
@@ -276,6 +294,7 @@ function changeDirection(e){
         // down
             if(move !== 1){
                 move = 2;
+                document.querySelector("#down").classList.add("arrow-hover");
                 return 1;
             }
             return 0;
@@ -284,6 +303,7 @@ function changeDirection(e){
         // left
             if(move !== 4){
                 move = 3;
+                document.querySelector("#left").classList.add("arrow-hover");
                 return 1;
             }
             return 0;
@@ -291,6 +311,7 @@ function changeDirection(e){
         // right
             if(move !== 3){
                 move = 4;
+                document.querySelector("#right").classList.add("arrow-hover");
                 return 1;
             }
             return 0;
