@@ -23,6 +23,7 @@
                 <h1 class="snake-game-info-text" id="state">Paused</h1>
                 <h1 class="snake-game-info-header">Speed:</h1>
                 <h1 class="snake-game-info-text" id="gameSpeedStatus">Normal</h1>
+                <button class="snake-game-info-button">Restart</button>
             </div>
 
             <div class="snake-game-table">
@@ -42,10 +43,10 @@
                         <img src="css/arrow.png" id="right" alt="arrow" title="arrow right" />
                     </div>
                 </div>
-                <h2 class="snake-game-info-text">Use "z" to speed up or "x" to speed down.</h2>
                 <h2 class="snake-game-info-text">Collect fruits (red squares) to earn points (+1), but remember it increase your length.</h2>
                 <h2 class="snake-game-info-text">Eat mice (orange squares) to earn bonus points (+2).</h2>
                 <h2 class="snake-game-info-text">Try not to hit the wall and do not eat yourself!</h2>
+                <h2 class="snake-game-info-text">If you want to change game speed restart game or just lose recent.</h2>
             </div>
         </main>
 
@@ -53,7 +54,7 @@
             <h3 class="snake-footer-author">Author: Mateusz Greń</h3>
         </footer>
 
-        <div class="snake-modal">
+        <div class="snake-modal" id="restartModal">
             <div class="snake-modal-baner">
                 <span>Info box</span>
                 <button class="snake-modal-baner-button button" title="Close"><i class="fas fa-times"></i></button>
@@ -65,6 +66,22 @@
                 <button class="snake-modal-button button" title="Close">OK</button>
             </div>
         </div>
+
+        <div class="snake-modal" id="speedModal">
+            <div class="snake-modal-baner">
+                <span>Choose game speed</span>
+                <button class="snake-modal-baner-button button" title="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="snake-modal-text">
+                <p>Choose game level:</p>
+                <button class="snake-modal-button button" id="Boring" title="Boring: move per 1s">Boring</button>
+                <button class="snake-modal-button button" id="Normal" title="Normal: move per 0.5s">Normal</button>
+                <button class="snake-modal-button button" id="Hard" title="Hard: move per 0.3s">Hard</button>
+                <button class="snake-modal-button button" id="Hardcore" title="Hardcore: move per 0.1s">Hardcore</button>
+            </div>
+        </div>
+
+        
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
         <script src="js/script.js"></script>

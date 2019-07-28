@@ -37,6 +37,9 @@ const borderBottomArray = []; // array with bottom border values
 
 // Initialize game:
 gameBegin();
+flag = 2;
+document.querySelector(".snake-game").setAttribute("style", "filter:blur(2px)");
+document.querySelector("#speedModal").setAttribute("style","display:block");
 
 
 // Adding events
@@ -68,18 +71,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        if(e.keyCode === 90){ // z - speedUp
-            gameSpeedChange(1);
-            pauseGame();
-            gameRefresh();
-        }
-
-        if(e.keyCode === 88){ // x - speedDown
-            gameSpeedChange(0);
-            pauseGame();
-            gameRefresh();
-        }
-
     });
 
     document.addEventListener("keyup", function(e) {
@@ -99,20 +90,58 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     })
 
-    const modal = document.querySelector(".snake-modal");
+    const modal = document.querySelector("#restartModal");
+    const speedModal = document.querySelector("#speedModal");
     const buttons = modal.querySelectorAll(".button");
 
     for(let i = 0; i < buttons.length; i++){
-        buttons[i].addEventListener("click", closeModal);
+        buttons[i].addEventListener("click", function() {
+            document.querySelector("#restartModal").setAttribute("style","display:none");
+            document.querySelector("#speedModal").setAttribute("style","display:block");
+        });
     }
+
+    speedModal.querySelector(".snake-modal-baner-button").addEventListener("click", function() {
+        gameSpeedChange(2);
+        closeModal("#speedModal");
+    })
 
     document.addEventListener("keydown", function(e){
         if(modal.getAttribute("style") === "display:block"){
             if(e.keyCode === 32 || e.keyCode === 13 || e.keyCode === 27){
-                closeModal();
+                document.querySelector("#restartModal").setAttribute("style","display:none");
+                document.querySelector("#speedModal").setAttribute("style","display:block");
+            }
+        } else if(speedModal.getAttribute("style") === "display:block"){
+            if(e.keyCode === 32 || e.keyCode === 13 || e.keyCode === 27){
+                gameSpeedChange(2);
+                closeModal("#speedModal");
             }
         }
     });
+
+    speedModal.querySelector("#Boring").addEventListener("click", function(){
+        gameSpeedChange(1);
+        closeModal("#speedModal");
+    });
+
+    speedModal.querySelector("#Normal").addEventListener("click", function(){
+        gameSpeedChange(2);
+        closeModal("#speedModal");
+    });
+
+    speedModal.querySelector("#Hard").addEventListener("click", function(){
+        gameSpeedChange(3);
+        closeModal("#speedModal");
+    });
+
+    speedModal.querySelector("#Hardcore").addEventListener("click", function(){
+        gameSpeedChange(4);
+        closeModal("#speedModal");
+    });
+
+    document.querySelector(".snake-game-info-button").addEventListener("click", gameOver);
+
 });
 
 
@@ -436,9 +465,9 @@ function myselfCollision(firstElement){
 }
 
 // This function closes modal and restarts game
-function closeModal(){
+function closeModal(modal){
     document.querySelector(".snake-game").setAttribute("style", "filter:none");
-    document.querySelector(".snake-modal").setAttribute("style", "display:none");
+    document.querySelector(modal).setAttribute("style", "display:none");
     move = 4;
     scoreValue = 0;
     mouseMoves = 0;
@@ -449,18 +478,7 @@ function closeModal(){
 }
 
 // This function changes game speed
-function gameSpeedChange(value){
-    if(value === 1){
-        // Speed up
-        if(gameSpeed < 4){
-            gameSpeed ++;
-        }
-    } else if(value === 0){
-        // Speed down
-        if(gameSpeed > 1){
-            gameSpeed--;
-        }
-    }
+function gameSpeedChange(gameSpeed){
     const speedStatus = document.querySelector("#gameSpeedStatus");
     switch (gameSpeed){
         case 1:
@@ -513,7 +531,7 @@ function gameOver(){
     pauseGame();
     document.querySelector("#modalScore").innerText = "Final score: "+scoreValue;
     document.querySelector(".snake-game").setAttribute("style", "filter:blur(2px)");
-    document.querySelector(".snake-modal").setAttribute("style", "display:block");
+    document.querySelector("#restartModal").setAttribute("style", "display:block");
     flag = 2;
 }
 

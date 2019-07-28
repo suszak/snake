@@ -11,7 +11,7 @@
 body {
     min-width: 1000px;
     width: 98%;
-    height: 900px; 
+    height: 920px; 
     background-color: var(--bg-color);
     display: flex;
     align-items: center;
@@ -45,7 +45,7 @@ header {
 main {
     color: var(--font-color);
     width: 90%;
-    height: 700px;
+    height: 800px;
     display: flex;
     flex-direction: row;
 }
@@ -63,6 +63,25 @@ main {
 
 .snake-game-info-text {
     font-size: 22px;
+}
+
+.snake-game-info-button {
+    text-transform: uppercase;
+    margin-top: 50px;
+    border: none;
+    border-radius: 500px;
+    height: 25px;
+    width: 100px;
+    font-weight: 1000;
+    cursor: pointer;
+    transition: 0.4s all;
+    background: #8999A6;
+    color: black;
+}
+
+.snake-game-info-button:hover {
+    color: #FBFFF1;
+    background: rgb(74, 74, 240);
 }
 
 /* main mid */
@@ -175,10 +194,11 @@ footer {
     height: 100px;
     font-size: 10px;
     bottom: 0;
+    padding-top: 50px;
 }
 
 /* modal */
-.snake-modal{
+.snake-modal {
     position: absolute;
     display: none;
     width: 400px;
@@ -191,7 +211,7 @@ footer {
     transform: translate(-50%,-50%);
 }
 
-.snake-modal-baner{
+.snake-modal-baner {
     width: 100%;
     height: 25px;
     background: black;
@@ -201,36 +221,39 @@ footer {
     align-items: center;
 }
 
-.snake-modal-baner span{
-    margin-left: 5px;
+.snake-modal-baner span {
+    width: 50%;
+    text-align: left;
+    padding-left: 5px;
 }
 
-.snake-modal-baner .fa-times{
+.snake-modal-baner .fa-times {
     transition: 0.3s all;
     cursor: pointer;
 }
 
-.snake-modal-baner-button{
-    margin-left: 310px;
+.snake-modal-baner-button {
+    width: 50%;
+    padding-left: 45%;
     color: #FBFFF1;
     border: 0;
     background: none;
 }
 
-.snake-modal-baner .fa-times:hover{
+.snake-modal-baner .fa-times:hover {
     color: red;
 }
 
-.snake-modal-text{
+.snake-modal-text {
     text-align: center;
     padding-top: 15px;
 }
 
-.snake-modal-text p:first-child{
+.snake-modal-text p:first-child {
     font-weight: bold;
 }
 
-.snake-modal-button{
+.snake-modal-button {
     margin-top: 15px;
     border: none;
     border-radius: 500px;
@@ -243,11 +266,24 @@ footer {
     color: black;
 }
 
-.snake-modal-button:hover{
+.snake-modal-button:hover {
     color: #FBFFF1;
     background: rgb(74, 74, 240);
 }
 
+#speedModal {
+    height: 300px;
+}
+
+#speedModal .snake-modal-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#speedModal .snake-modal-button {
+    width: 100px;
+}
 
 /* animations */
 @keyframes blink {
