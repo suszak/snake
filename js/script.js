@@ -546,7 +546,8 @@ function gameOver(){
             const today = new Date();
             let month = today.getMonth()+1;
             const year = today.getFullYear();
-            month = (month === 12)?month++:month;
+            month = (month < 12)?month++:1;
+            year = (month === 12)?year++:year;
             const expireDate = new Date(year+"-"+month+"-1T00:00:00");
 
             let cookieValue = encodeURIComponent("bestScore") + "=" + encodeURIComponent(scoreValue) + "; expires=" + expireDate;
