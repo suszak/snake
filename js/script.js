@@ -545,7 +545,7 @@ function gameOver(){
         if(scoreValue > Number(showCookie("bestScore"))){
             const today = new Date();
             let month = today.getMonth()+1;
-            const year = today.getFullYear();
+            let year = today.getFullYear();
             month = (month < 12)?month++:1;
             year = (month === 12)?year++:year;
             const expireDate = new Date(year+"-"+month+"-1T00:00:00");
@@ -557,7 +557,7 @@ function gameOver(){
     } else {
         const today = new Date();
         let month = today.getMonth()+1;
-        const year = today.getFullYear();
+        let year = today.getFullYear();
         month = (month === 12)?month++:month;
         const expireDate = new Date(year+"-"+month+"-1T00:00:00");
 
