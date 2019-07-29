@@ -1,6 +1,7 @@
 :root{
-    --bg-color: black;
-    --font-color: white;
+    --bg-color: rgba(0, 0, 0, 1);
+    --font-color: rgba(167, 167, 167, 1);
+    --accent1-color: rgba(74, 74, 240, 1);
 }
 
 *{
@@ -24,7 +25,7 @@ header {
     color: var(--font-color);
     width: 90%;
     height: 155px;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid var(--font-color);
 }
 
 .snake-header-big {
@@ -34,11 +35,13 @@ header {
     position: relative;
     margin-bottom: 0;
     letter-spacing: 4px;
+    color: rgba(255,255,255,1);
 } 
 
 .snake-header-small {
     margin-top: -5px;
     font-size: 25px;
+    color: rgba(255,255,255,0.9);
 }
 
 /* main section */
@@ -58,7 +61,7 @@ main {
 
 .snake-game-info-header {
     font-size: 30px;
-    color: rgb(74, 74, 240);
+    color: var(--accent1-color);
 }
 
 .snake-game-info-text {
@@ -81,7 +84,7 @@ main {
 
 .snake-game-info-button:hover {
     color: #FBFFF1;
-    background: rgb(74, 74, 240);
+    background: var(--accent1-color);
 }
 
 /* main mid */
@@ -107,17 +110,17 @@ main {
     width: 25px;
     height: 25px;
     margin: 1px;
-    background: #FBFFF1;
+    background: var(--font-color);
     float: left;
     transition: background-color 0.15s;
 }
 
 .snake-game-table-fruit {
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.7);
 }
 
 #snake, #snakeFirst{
-    background-color: rgb(74, 74, 240);
+    background-color: var(--accent1-color);
 }
 
 #snakeFirst{
@@ -125,7 +128,7 @@ main {
 }
 
 .snake-game-table-mouse {
-    background-color: orange;
+    background-color: rgba(255, 166, 0, 0.7);
     animation: blink 1s infinite;
 }
 
@@ -146,7 +149,7 @@ main {
 }
 
 .snake-game-info-right img {
-    background: white;
+    background: var(--font-color);
     transition: 0.4s all;
     width: 40px;
     height: 40px;

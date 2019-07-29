@@ -2,6 +2,7 @@ let snakeArray = []; // snakeArray[0] -> eldest, snakeArray[snakeArray.length-1]
 let fruitsArray = [];
 let table = null;
 let scoreValue = 0;
+let weeklyBestScore = 0;
 let gameSpeed = 2; // 1-> easy, 2 -> normal, 3-> hard, 4-hardcore
 let speedMultiplicator = 1;
 let move = 4; // 1 -> up, 2 -> down, 3 -> left, 4 -> right
@@ -38,6 +39,11 @@ const borderBottomArray = []; // array with bottom border values
 // Initialize game:
 gameBegin();
 flag = 2;
+if(showCookie("bestScore")){
+    document.querySelector("#monthlyScore").innerText = "Yours monthly score: "+showCookie("bestScore");
+} else {
+    document.querySelector("#monthlyScore").innerText = "Yours monthly score: 0";
+}
 document.querySelector(".snake-game").setAttribute("style", "filter:blur(2px)");
 document.querySelector("#speedModal").setAttribute("style","display:block");
 
@@ -533,6 +539,32 @@ function gameOver(){
     document.querySelector(".snake-game").setAttribute("style", "filter:blur(2px)");
     document.querySelector("#restartModal").setAttribute("style", "display:block");
     flag = 2;
+    
+
+    if(showCookie("bestScore")){
+        if(scoreValue > Number(showCookie("bestScore"))){
+            const today = new Date();
+            let month = today.getMonth()+1;
+            const year = today.getFullYear();
+            month = (month === 12)?month++:month;
+            const expireDate = new Date(year+"-"+month+"-1T00:00:00");
+
+            let cookieValue = encodeURIComponent("bestScore") + "=" + encodeURIComponent(scoreValue) + "; expires=" + expireDate;
+            document.cookie = cookieValue;
+            document.querySelector("#monthlyScore").innerText = "Yours monthly score: "+scoreValue;
+        }
+    } else {
+        const today = new Date();
+        let month = today.getMonth()+1;
+        const year = today.getFullYear();
+        month = (month === 12)?month++:month;
+        const expireDate = new Date(year+"-"+month+"-1T00:00:00");
+
+        let cookieValue = encodeURIComponent("bestScore") + "=" + encodeURIComponent(scoreValue) + "; expires=" + expireDate;
+        document.cookie = cookieValue;
+        document.querySelector("#monthlyScore").innerText = "Yours monthly score: "+scoreValue;
+    }
+
 }
 
 // This function initializes game
@@ -545,4 +577,19 @@ function gameBegin(){
 // This funtion unlocks adding point from eating mouse
 function addMousePoint(){
     mouseScore = 1;
+}
+
+// This function shows cookies value
+function showCookie(name) {
+    if (document.cookie != "") {
+        const cookies = document.cookie.split(/; */);
+
+        for (let i=0; i<cookies.length; i++) {
+            const cookieName = cookies[i].split("=")[0];
+            const cookieVal = cookies[i].split("=")[1];
+            if (cookieName === decodeURIComponent(name)) {
+                return decodeURIComponent(cookieVal);
+            } 
+        }
+    }
 }
