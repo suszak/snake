@@ -2,7 +2,6 @@ let snakeArray = []; // snakeArray[0] -> eldest, snakeArray[snakeArray.length-1]
 let fruitsArray = [];
 let table = null;
 let scoreValue = 0;
-let weeklyBestScore = 0;
 let gameSpeed = 2; // 1-> easy, 2 -> normal, 3-> hard, 4-hardcore
 let speedMultiplicator = 1;
 let move = 4; // 1 -> up, 2 -> down, 3 -> left, 4 -> right
@@ -52,6 +51,7 @@ document.querySelector("#speedModal").setAttribute("style","display:block");
 document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("keydown", function(e) {
         if(e.keyCode === 32){
+            e.preventDefault();
             if(flag === 1){
                 pauseGame();
             } else if(flag === 0){
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
         if(e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40){
+            e.preventDefault();
             if(flag === 1){
                 if(changeDirection(e)){
                     nextSteps();
@@ -115,11 +116,13 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("keydown", function(e){
         if(modal.getAttribute("style") === "display:block"){
             if(e.keyCode === 32 || e.keyCode === 13 || e.keyCode === 27){
+                e.preventDefault();
                 document.querySelector("#restartModal").setAttribute("style","display:none");
                 document.querySelector("#speedModal").setAttribute("style","display:block");
             }
         } else if(speedModal.getAttribute("style") === "display:block"){
             if(e.keyCode === 32 || e.keyCode === 13 || e.keyCode === 27){
+                e.preventDefault();
                 gameSpeedChange(2);
                 closeModal("#speedModal");
             }
