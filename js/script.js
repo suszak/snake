@@ -38,6 +38,28 @@ const borderBottomArray = []; // array with bottom border values
 // Initialize game:
 gameBegin();
 
+// Checking if we are on mobile device:
+const media = window.matchMedia("(min-width: 768px)");
+
+// if(window.matchMedia("(orientation: portrait)").matches){
+//     if (media.matches) {
+//         console.log('Wersja na desktopy');
+//     } else {
+//         console.log('Wersja mobilna');
+//     }
+// }
+
+media.addListener(function(media) {
+    if(window.matchMedia("(orientation: portrait)").matches){
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            console.log('Wersja na desktopy');
+            alert("desktop");
+        } else {
+            console.log('Wersja mobilna');
+            alert("mobile");
+        }
+    }
+});
 
 // Adding events
 document.addEventListener("DOMContentLoaded", function() {
