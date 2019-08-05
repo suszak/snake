@@ -1,3 +1,16 @@
+/* TODO:
+1) body - done
+2) header - done
+3) main:
+    a) left - done
+    b) mid - done
+    c) right
+4) footer - done
+5) modal - done
+
+6) functions on arrows
+ */
+
 :root{
     --bg-color: rgba(0, 0, 0, 1);
     --font-color: rgba(167, 167, 167, 1);
@@ -11,7 +24,7 @@
 
 body {
     min-width: 98%;
-    height: 900px; 
+    height: 920px; 
     background-color: var(--bg-color);
     display: flex;
     align-items: center;
@@ -23,12 +36,12 @@ body {
 header {
     color: var(--font-color);
     width: 90%;
-    height: 155px;
+    height: 300px;
     border-bottom: 2px solid var(--font-color);
 }
 
 .snake-header-big {
-    font-size: 50px;
+    font-size: 100px;
     text-transform: uppercase;
     background-color: var(--bg-color);
     position: relative;
@@ -39,7 +52,7 @@ header {
 
 .snake-header-small {
     margin-top: -5px;
-    font-size: 25px;
+    font-size: 45px;
     color: rgba(255,255,255,0.9);
 }
 
@@ -49,27 +62,39 @@ main {
     width: 90%;
     height: 800px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 /* main left */
 .snake-game-info-left {
-    height: 100%;
-    width: 20%;
+    height: 200px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.section {
+    margin-right: 75px;
+}
+
+.snake-game-info-left:first-child{
+    margin-left: 75px;
 }
 
 .snake-game-info-header {
-    font-size: 30px;
+    font-size: 55px;
     color: var(--accent1-color);
+    margin-bottom: 0;
 }
 
 .snake-game-info-text {
-    font-size: 22px;
+    margin-top: 5px;
+    font-size: 30px;
 }
 
 .snake-game-info-button {
     text-transform: uppercase;
-    margin-top: 50px;
     border: none;
     border-radius: 500px;
     height: 25px;
@@ -79,20 +104,17 @@ main {
     transition: 0.4s all;
     background: #8999A6;
     color: black;
-}
-
-.snake-game-info-button:hover {
-    color: #FBFFF1;
-    background: var(--accent1-color);
+    position: absolute;
+    top: 80%;
+    left: 7%;
+    transform: translate(50%, 50%) scale(2);
 }
 
 /* main mid */
 .snake-game-table{
-    height: 100%;
-    width: 60%;
     margin: 0 auto;
-    margin-left: 15px;
-    margin-right: 15px; 
+    transform: scale(1.7);
+    margin-top: 180px;
 }
 
 .snake-game-table-row{
@@ -134,17 +156,14 @@ main {
 
 
 /* main right */
-.snake-game-info-right {
-    height: 100%;
-    width: 20%;
-}
-
 .snake-game-info-right .snake-game-info-header {
     font-size: 25px;
+    display: none;
 }
 
 .snake-game-info-right .snake-game-info-text {
     font-size: 17px;
+    display: none;
 }
 
 .snake-game-info-right img {
@@ -153,6 +172,15 @@ main {
     width: 40px;
     height: 40px;
 }
+
+.snake-game-info-arrows {
+    display: block;
+    position: absolute;
+    top: 80%;
+    left: 65%;
+    transform: translate(50%, 50%) scale(2.5);
+}
+
 #right {
     transform: rotate(90deg);
 }
@@ -193,8 +221,8 @@ footer {
     color: var(--font-color);
     display: block;
     width: 90%;
-    height: 40px;
-    font-size: 10px;
+    height: 60px;
+    font-size: 18px;
     bottom: 0;
     position: absolute;
 }
@@ -210,7 +238,7 @@ footer {
     border: solid 2px black;
     box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.75);
     background: #FBFFF1;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%) scale(2.3);
 }
 
 .snake-modal-baner {
@@ -242,10 +270,6 @@ footer {
     background: none;
 }
 
-.snake-modal-baner .fa-times:hover {
-    color: red;
-}
-
 .snake-modal-text {
     text-align: center;
     padding-top: 15px;
@@ -266,11 +290,6 @@ footer {
     transition: 0.4s all;
     background: #8999A6;
     color: black;
-}
-
-.snake-modal-button:hover {
-    color: #FBFFF1;
-    background: rgb(74, 74, 240);
 }
 
 #speedModal {
