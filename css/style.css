@@ -11,7 +11,7 @@
 
 body {
     min-width: 98%;
-    height: 900px; 
+    height: 920px; 
     background-color: var(--bg-color);
     display: flex;
     align-items: center;
@@ -199,6 +199,10 @@ footer {
     position: absolute;
 }
 
+.spacebar-button {
+    display: none;
+}
+
 /* modal */
 .snake-modal {
     position: absolute;
@@ -285,6 +289,14 @@ footer {
 
 #speedModal .snake-modal-button {
     width: 100px;
+}
+
+.snake-info-button {
+    display: none;
+}
+
+.snake-information {
+    display: none;
 }
 
 /* animations */

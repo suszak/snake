@@ -34,6 +34,23 @@ const borderBottomArray = []; // array with bottom border values
         borderBottomArray.push(i);
     }
 
+// Check which type of device is using this site:
+
+    if(navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+      )
+    {
+        document.querySelector("#style_css").setAttribute("href","css/mobile_style.css");
+    } else {
+        console.log("desktop");
+    }
+
+
 
 // Initialize game:
 gameBegin();

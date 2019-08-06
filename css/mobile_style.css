@@ -105,7 +105,7 @@ main {
     background: #8999A6;
     color: black;
     position: absolute;
-    top: 80%;
+    top: 85%;
     left: 7%;
     transform: translate(50%, 50%) scale(2);
 }
@@ -115,6 +115,7 @@ main {
     margin: 0 auto;
     transform: scale(1.7);
     margin-top: 180px;
+    padding-left: 7px;
 }
 
 .snake-game-table-row{
@@ -176,7 +177,7 @@ main {
 .snake-game-info-arrows {
     display: block;
     position: absolute;
-    top: 80%;
+    top: 85%;
     left: 65%;
     transform: translate(50%, 50%) scale(2.5);
 }
@@ -193,27 +194,14 @@ main {
     transform: rotate(180deg);
 }
 
-#up:hover {
-    box-shadow: 0px 0px 10px 0.1px rgba(255,255,255,1);
-}
-
-#down:hover {
-    transform: rotate(180deg);
-    box-shadow: 0px 0px 10px 0.1px rgba(255,255,255,1);
-}
-
-#left:hover {
-    transform: rotate(270deg);
-    box-shadow: 0px 0px 10px 0.1px rgba(255,255,255,1);
-}
-
-#right:hover {
-    transform: rotate(90deg);
-    box-shadow: 0px 0px 10px 0.1px rgba(255,255,255,1);
-}
-
-.arrow-hover {
-    box-shadow: 0px 0px 10px 0.1px rgba(255,255,255,1);
+.spacebar-button {
+    position: absolute;
+    width: 400px;
+    height: 80px;
+    background-color: var(--font-color);
+    border-radius: 15px;
+    top: 90%;
+    left: 7%;
 }
 
 /* footer section */
@@ -304,6 +292,24 @@ footer {
 
 #speedModal .snake-modal-button {
     width: 100px;
+}
+
+.snake-info-button {
+    position: absolute;
+    top: 5%;
+    left: 85%;
+    width: 75px;
+    height: 75px;
+    font-size: 60px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 1024px;
+    color: white;
+    border: 5px solid white;
+}
+
+.snake-information {
+    display: none;
 }
 
 /* animations */

@@ -7,12 +7,13 @@
     <head>
         <meta charset="utf-8">
         <title>SNAKE - offline game</title>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" id="style_css" type="text/css" href="css/style.css">
     </head>
     <body>
         <header class="snake-header">
             <h1 class="snake-header-big">Snake</h1>
             <h2 class="snake-header-small">the game</h2>
+            <div class="snake-info-button">i</div>
         </header>
 
         <main class="snake-game">
@@ -30,6 +31,7 @@
                     <h1 class="snake-game-info-text" id="gameSpeedStatus">Normal</h1>
                 </div>
                 <button class="snake-game-info-button">Restart</button>
+                <div class="spacebar-button"></div>
             </div>
 
             <div class="snake-game-table">
@@ -85,6 +87,15 @@
                 <button class="snake-modal-button button" id="Hard" title="Hard: move per 0.3s">Hard</button>
                 <button class="snake-modal-button button" id="Hardcore" title="Hardcore: move per 0.1s">Hardcore</button>
             </div>
+        </div>
+
+        <div class="snake-information">
+                <h1 class="snake-game-info-header">How to play?</h1>
+                <h2 class="snake-game-info-text">Press spacebar or any arrow to begin game and spacebar to pause.</h2>
+                <h2 class="snake-game-info-text">Collect fruits (red squares) to earn points (+1), but remember it will increase your length.</h2>
+                <h2 class="snake-game-info-text">Eat mice (orange squares) to earn bonus points (+2).</h2>
+                <h2 class="snake-game-info-text">Try not to hit the wall and do not eat yourself!</h2>
+                <h2 class="snake-game-info-text">If you want to change game speed restart game or just lose recent.</h2>
         </div>
 
         
