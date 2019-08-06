@@ -308,9 +308,19 @@ footer {
     border: 5px solid white;
 }
 
-.snake-information {
-    display: none;
+#snake-information {
+    height: 300px;
+    font-weight: normal;
 }
+
+#snake-information .snake-modal-text {
+    padding: 5px 5px;
+}
+
+#snake-information .snake-modal-text p:first-child {
+    font-weight: normal;
+}
+
 
 /* animations */
 @keyframes blink {

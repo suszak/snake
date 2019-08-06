@@ -2,6 +2,7 @@ let snakeArray = []; // snakeArray[0] -> eldest, snakeArray[snakeArray.length-1]
 let fruitsArray = [];
 let table = null;
 let scoreValue = 0;
+let mobile = false; // mobile flag: true -> mobile; false -> desktop
 let gameSpeed = 2; // 1-> easy, 2 -> normal, 3-> hard, 4-hardcore
 let speedMultiplicator = 1;
 let move = 4; // 1 -> up, 2 -> down, 3 -> left, 4 -> right
@@ -45,9 +46,10 @@ const borderBottomArray = []; // array with bottom border values
         || navigator.userAgent.match(/Windows Phone/i)
       )
     {
+        mobile = true;
         document.querySelector("#style_css").setAttribute("href","css/mobile_style.css");
     } else {
-        console.log("desktop");
+        mobile = false;
     }
 
 
@@ -66,20 +68,25 @@ document.querySelector("#speedModal").setAttribute("style","display:block");
 
 // Adding events
 document.addEventListener("DOMContentLoaded", function() {
-    document.addEventListener("keydown", function(e) {
-        if(e.keyCode === 32){
-            e.preventDefault();
+    if(mobile){
+        const spacebar = document.querySelector(".spacebar-button");
+        const arrowUp = document.querySelector("#up");
+        const arrowDown = document.querySelector("#down");
+        const arrowLeft = document.querySelector("#left");
+        const arrowRight = document.querySelector("#right");
+        const infoButton = document.querySelector(".snake-info-button");
+
+        spacebar.addEventListener("click", function() {
             if(flag === 1){
                 pauseGame();
             } else if(flag === 0){
                 gameRefresh();
             }
-        }
-        
-        if(e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40){
-            e.preventDefault();
+        });
+
+        arrowUp.addEventListener("click", function() {
             if(flag === 1){
-                if(changeDirection(e)){
+                if(changeDirection(38)){
                     nextSteps();
                 
                     if (flag === 1){
@@ -88,31 +95,127 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
             } else if(flag === 0){
-                if(changeDirection(e)){
+                if(changeDirection(38)){
                     gameRefresh();
                     nextSteps();
                 }
             }
-        }
+        });
 
-    });
+        arrowDown.addEventListener("click", function() {
+            if(flag === 1){
+                if(changeDirection(40)){
+                    nextSteps();
+                
+                    if (flag === 1){
+                        clearInterval(game);
+                        game = setInterval(nextSteps, 500*speedMultiplicator);
+                    }
+                }
+            } else if(flag === 0){
+                if(changeDirection(40)){
+                    gameRefresh();
+                    nextSteps();
+                }
+            }
+        });
 
-    document.addEventListener("keyup", function(e) {
-        switch (e.keyCode) {
-            case 37:
-                document.querySelector("#left").classList.remove("arrow-hover");
-                break;
-            case 38:
-                document.querySelector("#up").classList.remove("arrow-hover");
-                break;
-            case 39:
-                document.querySelector("#right").classList.remove("arrow-hover");
-                break;
-            case 40:
-                document.querySelector("#down").classList.remove("arrow-hover");
-                break;
-        }
-    })
+        document.querySelector("#snake-information").querySelector(".snake-modal-baner-button").addEventListener("click", function() {
+            document.querySelector("#snake-information").setAttribute("style", "display:none");
+        });
+
+        arrowLeft.addEventListener("click", function() {
+            if(flag === 1){
+                if(changeDirection(37)){
+                    nextSteps();
+                
+                    if (flag === 1){
+                        clearInterval(game);
+                        game = setInterval(nextSteps, 500*speedMultiplicator);
+                    }
+                }
+            } else if(flag === 0){
+                if(changeDirection(37)){
+                    gameRefresh();
+                    nextSteps();
+                }
+            }
+        });
+
+        arrowRight.addEventListener("click", function() {
+            if(flag === 1){
+                if(changeDirection(39)){
+                    nextSteps();
+                
+                    if (flag === 1){
+                        clearInterval(game);
+                        game = setInterval(nextSteps, 500*speedMultiplicator);
+                    }
+                }
+            } else if(flag === 0){
+                if(changeDirection(39)){
+                    gameRefresh();
+                    nextSteps();
+                }
+            }
+        });
+
+        document.querySelector(".snake-info-button").addEventListener("click", function() {
+            document.querySelector("#snake-information").setAttribute("style","display:block");
+        });
+    }
+
+
+    if(!mobile){
+        document.addEventListener("keydown", function(e) {
+            if(e.keyCode === 32){
+                e.preventDefault();
+                if(flag === 1){
+                    pauseGame();
+                } else if(flag === 0){
+                    gameRefresh();
+                }
+            }
+            
+            if(e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40){
+                e.preventDefault();
+                if(flag === 1){
+                    if(changeDirection(e)){
+                        nextSteps();
+                    
+                        if (flag === 1){
+                            clearInterval(game);
+                            game = setInterval(nextSteps, 500*speedMultiplicator);
+                        }
+                    }
+                } else if(flag === 0){
+                    if(changeDirection(e)){
+                        gameRefresh();
+                        nextSteps();
+                    }
+                }
+            }
+
+        });
+    
+
+        document.addEventListener("keyup", function(e) {
+            switch (e.keyCode) {
+                case 37:
+                    document.querySelector("#left").classList.remove("arrow-hover");
+                    break;
+                case 38:
+                    document.querySelector("#up").classList.remove("arrow-hover");
+                    break;
+                case 39:
+                    document.querySelector("#right").classList.remove("arrow-hover");
+                    break;
+                case 40:
+                    document.querySelector("#down").classList.remove("arrow-hover");
+                    break;
+            }
+        });
+    }
 
     const modal = document.querySelector("#restartModal");
     const speedModal = document.querySelector("#speedModal");
@@ -120,31 +223,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
     for(let i = 0; i < buttons.length; i++){
         buttons[i].addEventListener("click", function() {
-            document.querySelector("#restartModal").setAttribute("style","display:none");
-            document.querySelector("#speedModal").setAttribute("style","display:block");
+            modal.setAttribute("style","display:none");
+            speedModal.setAttribute("style","display:block");
         });
     }
 
     speedModal.querySelector(".snake-modal-baner-button").addEventListener("click", function() {
         gameSpeedChange(2);
         closeModal("#speedModal");
-    })
-
-    document.addEventListener("keydown", function(e){
-        if(modal.getAttribute("style") === "display:block"){
-            if(e.keyCode === 32 || e.keyCode === 13 || e.keyCode === 27){
-                e.preventDefault();
-                document.querySelector("#restartModal").setAttribute("style","display:none");
-                document.querySelector("#speedModal").setAttribute("style","display:block");
-            }
-        } else if(speedModal.getAttribute("style") === "display:block"){
-            if(e.keyCode === 32 || e.keyCode === 13 || e.keyCode === 27){
-                e.preventDefault();
-                gameSpeedChange(2);
-                closeModal("#speedModal");
-            }
-        }
     });
+
+    if(!mobile){
+        document.addEventListener("keydown", function(e){
+            if(modal.getAttribute("style") === "display:block"){
+                if(e.keyCode === 32 || e.keyCode === 13 || e.keyCode === 27){
+                    e.preventDefault();
+                    modal.setAttribute("style","display:none");
+                    speedModal.setAttribute("style","display:block");
+                }
+            } else if(speedModal.getAttribute("style") === "display:block"){
+                if(e.keyCode === 32 || e.keyCode === 13 || e.keyCode === 27){
+                    e.preventDefault();
+                    gameSpeedChange(2);
+                    closeModal("#speedModal");
+                }
+            }
+        });
+    }
 
     speedModal.querySelector("#Boring").addEventListener("click", function(){
         gameSpeedChange(1);
@@ -335,7 +440,14 @@ function gameStep(){
 
 // This function reads keyCode, and change our flag(move), which tell us about direction of snake
 function changeDirection(e){
-    switch (e.keyCode) {
+    let temp = null;
+    if(mobile){
+        temp = e;
+    } else {
+        temp = e.keyCode;
+    }
+
+    switch (temp) {
         case 38: 
         // up
             if(move !== 2) {
