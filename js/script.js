@@ -161,6 +161,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         document.querySelector(".snake-info-button").addEventListener("click", function() {
+            if(flag === 1){
+                pauseGame();
+            }
             document.querySelector("#snake-information").setAttribute("style","display:block");
         });
     }
