@@ -38,6 +38,7 @@ header {
     width: 90%;
     height: 300px;
     border-bottom: 2px solid var(--font-color);
+    display: none;
 }
 
 .snake-header-big {
