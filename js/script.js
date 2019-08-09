@@ -2,6 +2,10 @@ let snakeArray = []; // snakeArray[0] -> eldest, snakeArray[snakeArray.length-1]
 let fruitsArray = [];
 let table = null;
 let scoreValue = 0;
+let touchStartPointX = null;
+let touchStartPointY = null;
+let touchEndPointX = null;
+let touchEndPointY = null;
 let mobile = false; // mobile flag: true -> mobile; false -> desktop
 let gameSpeed = 2; // 1-> easy, 2 -> normal, 3-> hard, 4-hardcore
 let speedMultiplicator = 1;
@@ -70,11 +74,8 @@ document.querySelector("#speedModal").setAttribute("style","display:block");
 document.addEventListener("DOMContentLoaded", function() {
     if(mobile){
         const spacebar = document.querySelector(".spacebar-button");
-        const arrowUp = document.querySelector("#up");
-        const arrowDown = document.querySelector("#down");
-        const arrowLeft = document.querySelector("#left");
-        const arrowRight = document.querySelector("#right");
         const infoButton = document.querySelector(".snake-info-button");
+        const snakePool = document.querySelector(".snake-game-table");
 
         spacebar.addEventListener("click", function() {
             if(flag === 1){
@@ -84,80 +85,11 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        arrowUp.addEventListener("click", function() {
-            if(flag === 1){
-                if(changeDirection(38)){
-                    nextSteps();
-                
-                    if (flag === 1){
-                        clearInterval(game);
-                        game = setInterval(nextSteps, 500*speedMultiplicator);
-                    }
-                }
-            } else if(flag === 0){
-                if(changeDirection(38)){
-                    gameRefresh();
-                    nextSteps();
-                }
-            }
-        });
-
-        arrowDown.addEventListener("click", function() {
-            if(flag === 1){
-                if(changeDirection(40)){
-                    nextSteps();
-                
-                    if (flag === 1){
-                        clearInterval(game);
-                        game = setInterval(nextSteps, 500*speedMultiplicator);
-                    }
-                }
-            } else if(flag === 0){
-                if(changeDirection(40)){
-                    gameRefresh();
-                    nextSteps();
-                }
-            }
-        });
+        snakePool.addEventListener("touchstart", startTouch);
+        snakePool.addEventListener("touchend", endTouch);
 
         document.querySelector("#snake-information").querySelector(".snake-modal-baner-button").addEventListener("click", function() {
             document.querySelector("#snake-information").setAttribute("style", "display:none");
-        });
-
-        arrowLeft.addEventListener("click", function() {
-            if(flag === 1){
-                if(changeDirection(37)){
-                    nextSteps();
-                
-                    if (flag === 1){
-                        clearInterval(game);
-                        game = setInterval(nextSteps, 500*speedMultiplicator);
-                    }
-                }
-            } else if(flag === 0){
-                if(changeDirection(37)){
-                    gameRefresh();
-                    nextSteps();
-                }
-            }
-        });
-
-        arrowRight.addEventListener("click", function() {
-            if(flag === 1){
-                if(changeDirection(39)){
-                    nextSteps();
-                
-                    if (flag === 1){
-                        clearInterval(game);
-                        game = setInterval(nextSteps, 500*speedMultiplicator);
-                    }
-                }
-            } else if(flag === 0){
-                if(changeDirection(39)){
-                    gameRefresh();
-                    nextSteps();
-                }
-            }
         });
 
         document.querySelector(".snake-info-button").addEventListener("click", function() {
@@ -166,6 +98,91 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             document.querySelector("#snake-information").setAttribute("style","display:block");
         });
+
+        function startTouch(e) {
+            e.preventDefault();
+            touchStartPointX = e.changedTouches[0].screenX;
+            touchStartPointY = e.changedTouches[0].screenY;
+        }
+        
+        function endTouch(e) {
+            e.preventDefault();
+            touchEndPointX = e.changedTouches[0].screenX;
+            touchEndPointY = e.changedTouches[0].screenY;
+        
+            const moveX = touchEndPointX - touchStartPointX;
+            const moveY = touchEndPointY - touchStartPointY;
+        
+            if(Math.abs(moveX) >= Math.abs(moveY)) {
+                if(touchEndPointX > touchStartPointX){
+                    if(flag === 1){
+                        if(changeDirection(39)){
+                            nextSteps();
+                        
+                            if (flag === 1){
+                                clearInterval(game);
+                                game = setInterval(nextSteps, 500*speedMultiplicator);
+                            }
+                        }
+                    } else if(flag === 0){
+                        if(changeDirection(39)){
+                            gameRefresh();
+                            nextSteps();
+                        }
+                    }
+                } else {
+                    if(flag === 1){
+                        if(changeDirection(37)){
+                            nextSteps();
+                        
+                            if (flag === 1){
+                                clearInterval(game);
+                                game = setInterval(nextSteps, 500*speedMultiplicator);
+                            }
+                        }
+                    } else if(flag === 0){
+                        if(changeDirection(37)){
+                            gameRefresh();
+                            nextSteps();
+                        }
+                    }
+                }
+            } else {
+                if(touchEndPointY > touchStartPointY){
+                    if(flag === 1){
+                        if(changeDirection(40)){
+                            nextSteps();
+                        
+                            if (flag === 1){
+                                clearInterval(game);
+                                game = setInterval(nextSteps, 500*speedMultiplicator);
+                            }
+                        }
+                    } else if(flag === 0){
+                        if(changeDirection(40)){
+                            gameRefresh();
+                            nextSteps();
+                        }
+                    }
+                } else {
+                    if(flag === 1){
+                        if(changeDirection(38)){
+                            nextSteps();
+                        
+                            if (flag === 1){
+                                clearInterval(game);
+                                game = setInterval(nextSteps, 500*speedMultiplicator);
+                            }
+                        }
+                    } else if(flag === 0){
+                        if(changeDirection(38)){
+                            gameRefresh();
+                            nextSteps();
+                        }
+                    }
+                }
+            } 
+        }
     }
 
 
