@@ -59,28 +59,26 @@ header {
 
 /* main section */
 main {
+    position: absolute;
+    left: 0;
     color: var(--font-color);
     width: 90%;
-    height: 800px;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
 /* main left */
 .snake-game-info-left {
-    height: 200px;
-    width: 90%;
+    height: 25%;
+    width: 98%;
     display: flex;
     flex-direction: row;
-    margin: 0 auto;
+    margin-left: 13%;
 }
 
 .section {
     margin-right: 75px;
-}
-
-.snake-game-info-left:first-child{
-    margin-left: 75px;
 }
 
 .snake-game-info-header {
@@ -94,7 +92,7 @@ main {
     font-size: 30px;
 }
 
-.snake-game-info-button {
+.snake-game-info-button, .spacebar-button {
     text-transform: uppercase;
     border: none;
     border-radius: 15px;
@@ -102,22 +100,26 @@ main {
     width: 400px;
     font-weight: 1000;
     cursor: pointer;
-    transition: 0.4s all;
     background: var(--font-color);
     color: black;
     position: absolute;
-    top: 90%;
+    bottom: 5%;
     left: -10%;
     transform: translate(50%, 50%);
     font-size: 2rem;
 }
 
+.spacebar-button {
+    left: 38%;
+}
+
 /* main mid */
 .snake-game-table{
+    position: absolute;
+    top: 20%;
+    left: 0;
     margin: 0 auto;
-    transform: scale(1.7);
-    margin-top: 180px;
-    padding-left: 7px;
+    transform: translate(50%, 50%) scale(1.7);
 }
 
 .snake-game-table-row{
@@ -167,30 +169,9 @@ main {
     display: none;
 }
 
-.spacebar-button {
-    position: absolute;
-    font-size: 2rem;
-    text-transform: uppercase;
-    font-weight: 1000;
-    color: black;
-    width: 400px;
-    height: 80px;
-    background-color: var(--font-color);
-    border-radius: 15px;
-    top: 90%;
-    left: 35%;
-    transform: translate(50%, 50%);
-}
-
 /* footer section */
 footer {
-    color: var(--font-color);
-    display: block;
-    width: 90%;
-    height: 60px;
-    font-size: 18px;
-    bottom: 0;
-    position: absolute;
+    display: none;
 }
 
 /* modal */
@@ -223,11 +204,6 @@ footer {
     padding-left: 5px;
 }
 
-.snake-modal-baner .fa-times {
-    transition: 0.3s all;
-    cursor: pointer;
-}
-
 .snake-modal-baner-button {
     width: 50%;
     padding-left: 45%;
@@ -253,7 +229,6 @@ footer {
     width: 40px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.4s all;
     background: #8999A6;
     color: black;
 }

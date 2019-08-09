@@ -53,7 +53,8 @@ const borderBottomArray = []; // array with bottom border values
         mobile = true;
         document.querySelector("#style_css").setAttribute("href","css/mobile_style.css");
     } else {
-        mobile = false;
+        mobile = true;
+        document.querySelector("#style_css").setAttribute("href","css/mobile_style.css");
     }
 
 
@@ -66,9 +67,9 @@ if(showCookie("bestScore")){
 } else {
     document.querySelector("#monthlyScore").innerText = "Your monthly score: 0";
 }
+
 document.querySelector(".snake-game").setAttribute("style", "filter:blur(2px)");
 document.querySelector("#speedModal").setAttribute("style","display:block");
-
 
 // Adding events
 document.addEventListener("DOMContentLoaded", function() {
