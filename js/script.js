@@ -85,6 +85,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
+        infoButton.addEventListener("click", function() {
+            pauseGame();
+            document.querySelector(".snake-game").setAttribute("style", "filter:blur(2px)");
+            document.querySelector("#snake-information").setAttribute("style", "display:block");
+        });
+
         snakePool.addEventListener("touchstart", startTouch);
         snakePool.addEventListener("touchend", endTouch);
         snakePool.addEventListener("touchmove", function(e) {
@@ -93,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         document.querySelector("#snake-information").querySelector(".snake-modal-baner-button").addEventListener("click", function() {
             document.querySelector("#snake-information").setAttribute("style", "display:none");
+            document.querySelector(".snake-game").setAttribute("style", "filter:none");
         });
 
         document.querySelector(".snake-info-button").addEventListener("click", function() {
@@ -675,6 +682,9 @@ function gameRefresh(){
     flag = 1;
     fruit = setInterval(generateFruit, 5000*speedMultiplicator);
     document.querySelector("#state").innerText = "Running";
+    if(mobile) {
+        document.querySelector(".spacebar-button").innerText = "Pause";
+    }
 }
 
 // This function clears interval (pausing game)
@@ -685,6 +695,9 @@ function pauseGame(){
     flag = 0;
     clearInterval(fruit);
     document.querySelector("#state").innerText = "Paused";
+    if(mobile) {
+        document.querySelector(".spacebar-button").innerText = "Play";
+    }
 }
 
 // This function is called when player lost game
