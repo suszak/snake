@@ -1,16 +1,3 @@
-/* TODO:
-1) body - done
-2) header - done
-3) main:
-    a) left - done
-    b) mid - done
-    c) right
-4) footer - done
-5) modal - done
-
-6) functions on arrows
- */
-
 :root{
     --bg-color: rgba(0, 0, 0, 1);
     --font-color: rgba(167, 167, 167, 1);
@@ -23,73 +10,66 @@
 }
 
 body {
-    min-width: 98%;
-    height: 920px; 
+    min-width: 98vw;
+    height: 98vh; 
     background-color: var(--bg-color);
     display: flex;
     align-items: center;
     flex-direction: column;
     text-align: center;
+    margin: 0;
 }
 
 /* header section */
 header {
-    color: var(--font-color);
-    width: 90%;
-    height: 300px;
-    border-bottom: 2px solid var(--font-color);
-    display: none;
-}
-
-.snake-header-big {
-    font-size: 100px;
-    text-transform: uppercase;
-    background-color: var(--bg-color);
-    position: relative;
-    margin-bottom: 0;
-    letter-spacing: 4px;
-    color: rgba(255,255,255,1);
-} 
-
-.snake-header-small {
-    margin-top: -5px;
-    font-size: 45px;
-    color: rgba(255,255,255,0.9);
+    width: 0;
+    height: 0;
 }
 
 /* main section */
 main {
-    position: absolute;
-    left: 0;
+    margin: 0 auto;
     color: var(--font-color);
-    width: 90%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    padding: 10px 10px;
 }
 
 /* main left */
 .snake-game-info-left {
-    height: 25%;
-    width: 98%;
-    display: flex;
-    flex-direction: row;
-    margin-left: 13%;
+    height: 20%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr;
+    grid-auto-rows: auto;
+    grid-auto-flow: column;
 }
 
 .section {
-    margin-right: 75px;
+    position: relative;
+    width: 100%;
+    text-align: center;
 }
 
 .snake-game-info-header {
-    font-size: 55px;
+    position: absolute;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    font-size: 65px;
+    top: 30%;
+    left: 50%;
     color: var(--accent1-color);
-    margin-bottom: 0;
 }
 
 .snake-game-info-text {
-    margin-top: 5px;
-    font-size: 30px;
+    position: absolute;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-size: 32px;
 }
 
 .snake-game-info-button, .spacebar-button {
@@ -104,32 +84,26 @@ main {
     color: black;
     position: absolute;
     bottom: 5%;
-    left: -10%;
-    transform: translate(50%, 50%);
+    left: 30%;
+    transform: translate(-50%, -50%);
     font-size: 2rem;
 }
 
 .spacebar-button {
-    left: 38%;
+    left: 70%;
 }
 
 /* main mid */
 .snake-game-table{
     position: absolute;
-    top: 20%;
-    left: 0;
-    margin: 0 auto;
-    transform: translate(50%, 50%) scale(1.7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.7);
 }
 
 .snake-game-table-row{
     width: 550px;
     height: 27px;
-    margin: 0 auto;
-}
-
-.snake-game-table-row:first-child{
-    margin-top: 15px;
 }
 
 .snake-game-table-pool{
@@ -159,13 +133,7 @@ main {
 }
 
 /* main right */
-.snake-game-info-right .snake-game-info-header {
-    font-size: 25px;
-    display: none;
-}
-
-.snake-game-info-right .snake-game-info-text {
-    font-size: 17px;
+.snake-game-info-right {
     display: none;
 }
 
@@ -196,19 +164,21 @@ footer {
     color: #FBFFF1;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .snake-modal-baner span {
+    position: absolute;
     width: 50%;
     text-align: left;
     padding-left: 5px;
 }
 
 .snake-modal-baner-button {
-    width: 50%;
-    padding-left: 45%;
+    position: absolute;
+    right: 5px;
     color: #FBFFF1;
-    border: 0;
+    border: none;
     background: none;
 }
 
@@ -249,8 +219,8 @@ footer {
 
 .snake-info-button {
     position: absolute;
-    top: 5%;
-    left: 85%;
+    top: 1%;
+    left: 92%;
     width: 75px;
     height: 75px;
     font-size: 60px;
@@ -259,6 +229,10 @@ footer {
     border-radius: 1024px;
     color: white;
     border: 5px solid white;
+}
+
+#snake-info-button {
+    display: block;
 }
 
 #snake-information {

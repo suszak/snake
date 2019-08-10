@@ -53,7 +53,7 @@ const borderBottomArray = []; // array with bottom border values
         mobile = true;
         document.querySelector("#style_css").setAttribute("href","css/mobile_style.css");
     } else {
-        mobile = false;
+        mobile = flase;
     }
 
 
@@ -62,9 +62,9 @@ const borderBottomArray = []; // array with bottom border values
 gameBegin();
 flag = 2;
 if(showCookie("bestScore")){
-    document.querySelector("#monthlyScore").innerText = "Your monthly score: "+showCookie("bestScore");
+    document.querySelector("#monthlyScore").innerText = "Monthly best score: "+showCookie("bestScore");
 } else {
-    document.querySelector("#monthlyScore").innerText = "Your monthly score: 0";
+    document.querySelector("#monthlyScore").innerText = "Monthly best score: 0";
 }
 
 document.querySelector(".snake-game").setAttribute("style", "filter:blur(2px)");
@@ -704,7 +704,7 @@ function gameOver(){
 
             let cookieValue = encodeURIComponent("bestScore") + "=" + encodeURIComponent(scoreValue) + "; expires=" + expireDate;
             document.cookie = cookieValue;
-            document.querySelector("#monthlyScore").innerText = "Your monthly score: "+scoreValue;
+            document.querySelector("#monthlyScore").innerText = "Monthly best score: "+scoreValue;
         }
     } else {
         const today = new Date();
@@ -715,7 +715,7 @@ function gameOver(){
 
         let cookieValue = encodeURIComponent("bestScore") + "=" + encodeURIComponent(scoreValue) + "; expires=" + expireDate;
         document.cookie = cookieValue;
-        document.querySelector("#monthlyScore").innerText = "Your monthly score: "+scoreValue;
+        document.querySelector("#monthlyScore").innerText = "Monthly best score: "+scoreValue;
     }
 
 }
