@@ -70,6 +70,7 @@ main {
     top: 50%;
     left: 50%;
     font-size: 32px;
+    margin-top: 60px;
 }
 
 .snake-game-info-button, .spacebar-button {
@@ -77,20 +78,20 @@ main {
     border: none;
     border-radius: 15px;
     height: 80px;
-    width: 400px;
+    width: 300px;
     font-weight: 1000;
     cursor: pointer;
     background: var(--font-color);
     color: black;
     position: absolute;
     bottom: 5%;
-    left: 30%;
+    left: 20%;
     transform: translate(-50%, -50%);
     font-size: 2rem;
 }
 
 .spacebar-button {
-    left: 70%;
+    left: 80%;
 }
 
 /* main mid */
