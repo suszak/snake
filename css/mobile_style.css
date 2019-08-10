@@ -11,7 +11,7 @@
 
 body {
     min-width: 98vw;
-    height: 98vh; 
+    height: 85vh; 
     background-color: var(--bg-color);
     display: flex;
     align-items: center;
