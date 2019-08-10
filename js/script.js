@@ -53,7 +53,7 @@ const borderBottomArray = []; // array with bottom border values
         mobile = true;
         document.querySelector("#style_css").setAttribute("href","css/mobile_style.css");
     } else {
-        mobile = flase;
+        mobile = false;
     }
 
 
