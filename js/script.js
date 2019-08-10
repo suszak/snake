@@ -87,6 +87,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         snakePool.addEventListener("touchstart", startTouch);
         snakePool.addEventListener("touchend", endTouch);
+        snakePool.addEventListener("touchmove", function(e) {
+            e.preventDefault();
+        });
 
         document.querySelector("#snake-information").querySelector(".snake-modal-baner-button").addEventListener("click", function() {
             document.querySelector("#snake-information").setAttribute("style", "display:none");
