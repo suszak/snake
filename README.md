@@ -14,4 +14,4 @@ Project is created with:
 * JavaScript
 
 ## Live version
-* [suszak.github.io/projekt-waz](http://suszak.github.io/projekt-waz)
+* [suszak.github.io/snake](http://suszak.github.io/snake)
